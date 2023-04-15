@@ -172,7 +172,7 @@
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">FOTO</span>
                         </label>
-                        <input type="text" class="form-control form-control-solid" placeholder="ALIAS" data-name="alias"/>
+                        <input type="file" class="form-control form-control-solid" data-name="foto"/>
                     </div>
 
                     <div class="col-md-12 fv-row fv-plugins-icon-container">
@@ -211,13 +211,11 @@
 <script>
     $(document).on("click", "[data-name='add_data']", function (e) {
         $('[data-name="name"]').val('');
-        $('[data-name="alias"]').val('');
+        $('[data-name="foto"]').val('');
         $('[data-name="email"]').val('');
-        $('[data-name="tlp"]').val('');
         $('[data-name="username"]').val('');
         $('[data-name="password"]').val('');
         $('[data-name="role_id"]').val('').trigger("change");
-        $('[data-name="id_service_base"]').val('').trigger("change");
         $('#add_data').modal('show');
     });
 
@@ -225,45 +223,45 @@
 
         $('.preloader').show();
         var name        = $('[data-name="name"]').val();
-        var alias       = $('[data-name="alias"]').val();
+        var foto        = $('[data-name="foto"]').val();
         var email       = $('[data-name="email"]').val();
-        var tlp         = $('[data-name="tlp"]').val();
         var username    = $('[data-name="username"]').val();
         var password    = $('[data-name="password"]').val();
         var role_id     = $('[data-name="role_id"]').val();
-        var id_service_base = $('[data-name="id_service_base"]').val();
 
-        $.ajax({
-            type: "POST",
-            url: "{{ route('adduser') }}",
-            data: {name:name,alias:alias,email:email,tlp:tlp,username:username,password:password,role_id:role_id,id_service_base:id_service_base},
-            cache: false,
-            success: function(data) {
-                // console.log(data);
-                $('.preloader').hide();
-                Swal.fire({
-                    position:'center',
-                    title: 'Success!',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then((data) => {
-                    location.reload();
-                })
-            },            
-            error: function (data) {
-                $('.preloader').hide();
-                Swal.fire({
-                    position:'center',
-                    title: 'Action Not Valid!',
-                    icon: 'warning',
-                    showConfirmButton: true,
-                    // timer: 1500
-                }).then((data) => {
-                    // location.reload();
-                })
-            }
-        });
+        // console.log(foto);
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "{{ route('adduser') }}",
+        //     data: {name:name,alias:alias,email:email,tlp:tlp,username:username,password:password,role_id:role_id,id_service_base:id_service_base},
+        //     cache: false,
+        //     success: function(data) {
+        //         // console.log(data);
+        //         $('.preloader').hide();
+        //         Swal.fire({
+        //             position:'center',
+        //             title: 'Success!',
+        //             icon: 'success',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         }).then((data) => {
+        //             location.reload();
+        //         })
+        //     },            
+        //     error: function (data) {
+        //         $('.preloader').hide();
+        //         Swal.fire({
+        //             position:'center',
+        //             title: 'Action Not Valid!',
+        //             icon: 'warning',
+        //             showConfirmButton: true,
+        //             // timer: 1500
+        //         }).then((data) => {
+        //             // location.reload();
+        //         })
+        //     }
+        // });
 
     });
 
