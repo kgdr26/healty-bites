@@ -13,7 +13,7 @@ use Hash;
 
 class AuthController extends Controller
 {
-    function showFormLogin(Type $var = null)
+    function showFormLogin()
     {
         if(Auth::check()){
             return redirect('/dashboard');
