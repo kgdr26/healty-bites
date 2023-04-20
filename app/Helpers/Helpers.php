@@ -35,13 +35,24 @@ function listusers(){
 
 //End Action Users
 
-//Action Role
+//Action Category
 function listcategory(){
     $arr   = DB::select("SELECT * FROM mst_category");
 
     return $arr;
 }
 
-//End Action Role
+//End Action Category
+
+//Action Product
+function listproduct(){
+    $arr   = DB::select("SELECT * FROM mst_product");
+
+    return $arr;
+}
+
+//End Action Product
+
+
 
 ?>

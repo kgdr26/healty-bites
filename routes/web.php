@@ -38,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('category',['as'=> 'category','uses'=>'MasterDataController@category']);
     Route::post('addcategory',['as'=> 'addcategory','uses'=>'MasterDataController@addcategory']);
     Route::post('showDataCategory',['as'=> 'showDataCategory','uses'=>'MasterDataController@showDataCategory']);
+    Route::get('product',['as'=> 'product','uses'=>'MasterDataController@product']);
+    Route::post('addproduct',['as'=> 'addproduct','uses'=>'MasterDataController@addproduct']);
+    Route::post('showDataproduct',['as'=> 'showDataproduct','uses'=>'MasterDataController@showDataproduct']);
     
 
 });

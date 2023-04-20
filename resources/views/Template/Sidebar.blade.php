@@ -114,7 +114,7 @@
                 <!--end:Menu item-->
 
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='category') show @endif">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='category' || Route::currentRouteName()=='product') show @endif">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -151,7 +151,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link " href="">
+                            <a class="menu-link @if (Route::currentRouteName()=='product') active @endif" href="{{route('product')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

@@ -57,5 +57,43 @@ class MasterDataController extends Controller
         return response($arr);
     }
 
+    function product()
+    {
+        $idn_user   = idn_user(auth::user()->id);
+        $arr        = listproduct();
+        $data = array(
+            'idn_user'  => $idn_user,
+            'title' => 'Product',
+            'arr'   => $arr,
+        );
+
+        return view('MasterData.product')->with($data);
+    }
+
+    function addproduct(Request $request)
+    {
+        $name       = $request['name'];
+        $is_active  = 1;
+        $update_by  = auth::user()->id;
+
+        DB::insert("INSERT INTO mst_product (name,is_active,update_by) values (?,?,?)", [$name,$is_active,$update_by]);
+
+        return response('success');
+    }
+
+    function showDataproduct(Request $request)
+    {
+        $id         = $request['id'];
+        $whr        = 'id';
+        $table      = 'mst_product';
+        $data       = array(
+            'id'    => $id,
+            'table' => $table,
+            'whr'   => $whr
+        );
+        $arr        = cekdata($data);
+
+        return response($arr);
+    }
 
 }
