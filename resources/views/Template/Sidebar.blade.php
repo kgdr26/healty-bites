@@ -21,7 +21,7 @@
             <div class="menu-content d-flex align-items-center px-3">
                 <!--begin::Avatar-->
                 <div class="symbol symbol-50px me-5">
-                    <img alt="Logo" src="{{asset('assets/img/default.jpg')}}" />
+                    <img alt="Logo" src="{{asset('img/profile').'/'.$idn_user->foto}}" />
                 </div>
                 <!--end::Avatar-->
 
@@ -114,7 +114,7 @@
                 <!--end:Menu item-->
 
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='category') show @endif">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -138,11 +138,11 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link " href="">
+                            <a class="menu-link @if (Route::currentRouteName()=='category') active @endif" href="{{route('category')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Kategori</span>
+                                <span class="menu-title">Category</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -155,7 +155,20 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Makanan</span>
+                                <span class="menu-title">Product</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link " href="">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Layanan</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

@@ -35,32 +35,40 @@ class UsersController extends Controller
 
     function adduser(Request $request)
     {
-        // $name      = $request['name'];
-        // $alias     = $request['alias'];
-        // $email     = $request['email'];
-        // $tlp       = $request['tlp'];
-        // $username  = $request['username'];
-        // $pass      = $request['password'];
-        // $password  = Hash::make($pass);
-        // $role_id   = $request['role_id'];
-        // $id_service_base   = $request['id_service_base'];
-        // $is_active  = 1;
-        // $update_by  = auth::user()->id;
 
-        // $countrows  = listusers();
-        // $cn         = sprintf("%04d",(count($countrows)+1));
-        // $data       = array(
-        //     'id'    => $role_id,
-        //     'table' => 'mst_role',
-        //     'whr'   => 'id'
-        // );
-        // $rolecode   = cekdata($data);
-        // $cd         = $rolecode['row']->code;
-        // $code       = $cd.'-'.$cn;
+        $username   = $request['username'];
+        $password   = Hash::make($request['password']);
+        $pass       = $request['password'];
+        $role_id    = $request['role_id'];
+        $name       = $request['name'];
+        $email       = $request['email'];
+        $foto       = $request['foto'];
+        
+        $is_active  = 1;
+        $update_by  = auth::user()->id;
 
-        // DB::insert("INSERT INTO users (code,username,pass,password,name,alias,role_id,email,tlp,id_service_base,is_active,update_by) values (?,?,?,?,?,?,?,?,?,?,?,?)", [$code,$username,$pass,$password,$name,$alias,$role_id,$email,$tlp,$id_service_base,$is_active,$update_by]);
+        DB::insert("INSERT INTO users (username, password, pass, role_id, name, email, foto, is_active, update_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [$username, $password, $pass, $role_id, $name, $email, $foto, $is_active, $update_by]);
 
-        // return response('success');
+        return response('success');
+    }
+
+    function upload_img(Request $request)
+    {
+
+        if ($request->hasFile('add_image')) {
+            $fourRandomDigit = rand(10,99999);
+            $photo      = $request->file('add_image');
+            $fileName   = $fourRandomDigit.'.'.$photo->getClientOriginalExtension();
+
+            $path = public_path().'/img/profile/';
+
+            File::makeDirectory($path, 0777, true, true);
+
+            $request->file('add_image')->move($path, $fileName);
+
+            return response($fileName);
+        }
+
     }
 
     function Role()
@@ -82,7 +90,7 @@ class UsersController extends Controller
         $is_active  = 1;
         $update_by  = auth::user()->id;
 
-        DB::insert("INSERT INTO mst_role (name,is_active,update_by) values (?,?,?,?)", [$code,$name,$is_active,$update_by]);
+        DB::insert("INSERT INTO mst_role (name,is_active,update_by) values (?,?,?)", [$name,$is_active,$update_by]);
 
         return response('success');
     }

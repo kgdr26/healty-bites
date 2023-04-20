@@ -7,3 +7,8 @@
     <link href="{{asset('assets/plugin_tenp/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
     <script src="{{asset('assets/plugin_tenp/datatables.bundle.js')}}"></script>
 @endif
+
+@if (Route::currentRouteName()=='category')
+    <link href="{{asset('assets/plugin_tenp/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <script src="{{asset('assets/plugin_tenp/datatables.bundle.js')}}"></script>
+@endif

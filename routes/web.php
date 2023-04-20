@@ -32,5 +32,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('role',['as'=> 'role','uses'=>'UsersController@Role']);
     Route::post('addrole',['as'=> 'addrole','uses'=>'UsersController@addRole']);
     Route::post('showdatarole',['as'=> 'showdatarole','uses'=>'UsersController@showDataRole']);
+    Route::post('upload_img',['as'=>'upload_img','uses'=> 'UsersController@upload_img']);
+
+    // Master Data
+    Route::get('category',['as'=> 'category','uses'=>'MasterDataController@category']);
+    Route::post('addcategory',['as'=> 'addcategory','uses'=>'MasterDataController@addcategory']);
+    Route::post('showDataCategory',['as'=> 'showDataCategory','uses'=>'MasterDataController@showDataCategory']);
+    
 
 });
