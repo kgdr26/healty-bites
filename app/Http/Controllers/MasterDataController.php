@@ -60,14 +60,35 @@ class MasterDataController extends Controller
     function product()
     {
         $idn_user   = idn_user(auth::user()->id);
-        $arr        = listproduct();
+        $arr        = listcategory();
+        $product    = listproduct();
         $data = array(
             'idn_user'  => $idn_user,
-            'title' => 'Product',
-            'arr'   => $arr,
+            'title'     => 'Product',
+            'arr'       => $arr,
+            'product'   => $product
         );
 
         return view('MasterData.product')->with($data);
+    }
+
+    function upload_img_prod(Request $request)
+    {
+
+        if ($request->hasFile('add_image')) {
+            $fourRandomDigit = rand(10,99999);
+            $photo      = $request->file('add_image');
+            $fileName   = $fourRandomDigit.'.'.$photo->getClientOriginalExtension();
+
+            $path = public_path().'/img/product/';
+
+            File::makeDirectory($path, 0777, true, true);
+
+            $request->file('add_image')->move($path, $fileName);
+
+            return response($fileName);
+        }
+
     }
 
     function addproduct(Request $request)
