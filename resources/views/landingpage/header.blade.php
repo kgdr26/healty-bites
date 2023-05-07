@@ -25,15 +25,16 @@
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll me-auto">
 					<!-- Nav item 1 Demos -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle active" href="#" id="demoMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page 1</a>
+					{{-- <li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle active" href="#" id="demoMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sig In / Register</a>
 						<ul class="dropdown-menu" aria-labelledby="demoMenu">
-							<li> <a class="dropdown-item active" href="">Sample Page 1</a></li>
+							<li> <a class="dropdown-item active" href="{{route('login')}}">Sig In</a></li>
+                            <li> <a class="dropdown-item active" href="{{route('login')}}">Register</a></li>
 						</ul>
-					</li>
+					</li> --}}
 
 					<!-- Nav item 2 Pages -->
-					<li class="nav-item dropdown">
+					{{-- <li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page 2</a>
 						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
 							<!-- Dropdown submenu -->
@@ -45,10 +46,10 @@
 							</li>
 
 						</ul>
-					</li>
+					</li> --}}
 
 					<!-- Nav item 3 Account -->
-					<li class="nav-item dropdown">
+					{{-- <li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page 3</a>
 						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
 							<!-- Dropdown submenu -->
@@ -61,10 +62,10 @@
 
 							
 						</ul>
-					</li>
+					</li> --}}
 
 					<!-- Nav item 4 Megamenu-->
-					<li class="nav-item dropdown dropdown-fullwidth">
+					{{-- <li class="nav-item dropdown dropdown-fullwidth">
 						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page 4</a>
 						<div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
 							<div class="row p-4 g-4">
@@ -179,7 +180,7 @@
 								</div>
 							</div>
 						</div>
-					</li>
+					</li> --}}
 
 				</ul>
 				<!-- Nav Main menu END -->
@@ -200,9 +201,9 @@
 			<!-- Main navbar END -->
 
 			<!-- Profile START -->
-			{{-- <div class="dropdown ms-1 ms-lg-0">
+			<div class="dropdown ms-1 ms-lg-0">
 				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="avatar-img rounded-circle" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+					<img class="avatar-img rounded-circle" src="{{asset('img/profile/default.jpg')}}" alt="avatar">
 				</a>
 				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
 					<!-- Profile info -->
@@ -210,7 +211,7 @@
 						<div class="d-flex align-items-center">
 							<!-- Avatar -->
 							<div class="avatar me-3">
-								<img class="avatar-img rounded-circle shadow" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+								<img class="avatar-img rounded-circle shadow" src="{{asset('img/profile/default.jpg')}}" alt="avatar">
 							</div>
 							<div>
 								<a class="h6" href="#">-</a>
@@ -220,7 +221,7 @@
 					</li>
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Links -->
-					<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign In</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="{{route('login')}}"><i class="bi bi-power fa-fw me-2"></i>Sign In</a></li>
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Dark mode options START -->
 					<li>
@@ -248,7 +249,7 @@
 					</li> 
 					<!-- Dark mode options END-->
 				</ul>
-			</div> --}}
+			</div>
 			<!-- Profile START -->
 		</div>
 	</nav>
