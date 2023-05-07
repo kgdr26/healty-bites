@@ -62,6 +62,12 @@
             }
         </script>
         <!--end::Theme mode setup on page load-->
+
+        <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+        <script src="{{asset('assets/sweetalert/sweetalert2.all.min.js')}} "></script>
+        <script src="{{asset('assets/plugin_tenp/plugins.bundle.js')}}"></script>
+        <script src="{{asset('assets/plugin_tenp/scripts.bundle.js')}}"></script>
+        <!--end::Global Javascript Bundle-->
     </head>
     <!--end::Head-->
 
@@ -140,7 +146,7 @@
                                     <div class="text-gray-400 fw-semibold fs-4">
                                         New Here?
 
-                                        <a href="" class="link-primary fw-bold">
+                                        <a href="#" class="link-primary fw-bold" data-name="add_data">
                                             Create an Account
                                         </a>
                                     </div>
@@ -169,10 +175,10 @@
                                         <!--end::Label-->
 
                                         <!--begin::Link-->
-                                        <a href=""
+                                        {{-- <a href=""
                                             class="link-primary fs-6 fw-bold">
                                             Forgot Password ?
-                                        </a>
+                                        </a> --}}
                                         <!--end::Link-->
                                     </div>
                                     <!--end::Wrapper-->
@@ -221,11 +227,241 @@
         </div>
         <!--end::Main-->
 
-        <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-        <script src="{{asset('assets/sweetalert/sweetalert2.all.min.js')}} "></script>
-        <script src="{{asset('assets/plugin_tenp/plugins.bundle.js')}}"></script>
-        <script src="{{asset('assets/plugin_tenp/scripts.bundle.js')}}"></script>
-        <!--end::Global Javascript Bundle-->
+        <form action="#" method="post" id="AddFormAction" enctype="multipart/form-data">
+            <div class="modal fade" id="add_data" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered mw-650px">
+                    <div class="modal-content">
+                        <div class="modal-header" id="">
+                            <h2>Create User</h2>
+                            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                <span class="svg-icon svg-icon-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                            transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="modal-body py-10 px-lg-17">
+        
+                            <div class="row mb-5">
+                                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="required">USERNMAE</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="USERNMAE" name="username"/>
+                                </div>
+        
+                                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="required">PASSWORD</span>
+                                    </label>
+                                    <input type="password" class="form-control form-control-solid" placeholder="PASSWORD" name="password"/>
+                                </div>
+        
+                                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="required">NAMA LENGKAP</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="NAMA LENGKAP" name="name"/>
+                                </div>
+        
+                                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="required">FOTO</span>
+                                    </label>
+                                    <input type="file" class="form-control form-control-solid" name="add_image" id="foto"/>
+                                </div>
+        
+                                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="required">EMAIL</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="EMAIL" name="email"/>
+                                </div>
+        
+                                <input type="hidden" id="foto_name" name="foto_name">
+                            </div>
+        
+                        </div>
+                        <div class="modal-footer flex-center">
+                            <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="button" data-name="save_data" class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+        <script>
+            $(document).on("click", "[data-name='add_data']", function (e) {
+                $('[name="name"]').val('');
+                $('[name="foto"]').val('');
+                $('[name="email"]').val('');
+                $('[name="username"]').val('');
+                $('[name="password"]').val('');
+                $('#add_data').modal('show');
+            });
+        
+            var btnUpload       = $("#foto");
+            btnUpload.on("change", function(e){
+                var ext = btnUpload.val().split('.').pop().toLowerCase();
+                // console.log(ext)
+                if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Format image failed!'
+                    })
+                } else {
+                    var uploadedFile = URL.createObjectURL(e.target.files[0]);
+                    var photo        = e.target.files[0];
+                    var formData    = new FormData();
+                    formData.append('add_image', photo);
+                    // console.log(formData);
+                    $.ajax({
+                        url: "{{route('upload_img')}}",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (res) {
+                            // console.log(res);
+                            $('#foto_name').val(res);
+                        }
+                    })
+        
+                }
+            });
+        
+            $(document).on("click", "[data-name='save_data']", function (e) {
+                e.preventDefault();
+                $('.preloader').show();
+                var form        = $("#AddFormAction");
+                var actform     = form.serializeArray();
+        
+                var username    = actform[0].value;
+                var password    = actform[1].value;
+                var name        = actform[2].value;
+                var email       = actform[3].value;
+                var role_id     = 2;
+                var foto        = actform[5].value;
+                // console.log(actform);
+                if(foto.trim() == '') {
+                    foto = 'default.jpg';
+                }
+                
+                if(username.trim() == ''){
+                    Swal.fire({
+                        position:'center',
+                        title: 'Username is empty!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+        
+                if(password.trim() == ''){
+                    Swal.fire({
+                        position:'center',
+                        title: 'Password is empty!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+        
+                if(name.trim() == ''){
+                    Swal.fire({
+                        position:'center',
+                        title: 'Name is empty!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+        
+                if(email.trim() == ''){
+                    Swal.fire({
+                        position:'center',
+                        title: 'Email is empty!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+        
+                if(role_id.trim() == ''){
+                    Swal.fire({
+                        position:'center',
+                        title: 'Role is empty!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+        
+                if(foto.trim() == ''){
+                    Swal.fire({
+                        position:'center',
+                        title: 'Role is empty!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+        
+                // console.log(foto);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('adduser') }}",
+                    data: {username:username,password:password,role_id:role_id,name:name,email:email,foto:foto},
+                    cache: false,
+                    success: function(data) {
+                        // console.log(data);
+                        $('.preloader').hide();
+                        Swal.fire({
+                            position:'center',
+                            title: 'Success!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then((data) => {
+                            location.reload();
+                        })
+                    },            
+                    error: function (data) {
+                        $('.preloader').hide();
+                        Swal.fire({
+                            position:'center',
+                            title: 'Action Not Valid!',
+                            icon: 'warning',
+                            showConfirmButton: true,
+                            // timer: 1500
+                        }).then((data) => {
+                            // location.reload();
+                        })
+                    }
+                });
+        
+            });
+        
+        </script>
+
+        
 
     </body>
     <!--end::Body-->

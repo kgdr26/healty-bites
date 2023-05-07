@@ -18,7 +18,11 @@ class AuthController extends Controller
         if(Auth::check()){
             return redirect('/dashboard');
         }
-        return view('login');
+        $role   = listrole();
+        $data = array(
+            'role'  => $role
+        );
+        return view('login')->with($data);
     }
 
     function login(Request $request)
