@@ -93,11 +93,17 @@ class MasterDataController extends Controller
 
     function addproduct(Request $request)
     {
-        $name       = $request['name'];
+
+        $id_category    = $request['id_category'];
+        $name           = $request['name'];
+        $price_inpu     = $request['price'];
+        $price          = (int) str_replace(array('Rp', '.', ','), '', $price_inpu);
+        $description    = $request['description'];
+        $img            = $request['img'];
         $is_active  = 1;
         $update_by  = auth::user()->id;
 
-        DB::insert("INSERT INTO mst_product (name,is_active,update_by) values (?,?,?)", [$name,$is_active,$update_by]);
+        DB::insert("INSERT INTO mst_product (id_category,name,price,description,img,is_active,update_by) values (?,?,?,?,?,?,?)", [$id_category,$name,$price,$description,$img,$is_active,$update_by]);
 
         return response('success');
     }

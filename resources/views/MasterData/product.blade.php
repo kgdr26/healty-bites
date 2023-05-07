@@ -126,14 +126,14 @@
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                         <span class="required">NAME</span>
                     </label>
-                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" id="name"/>
+                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" id="name" data-name="name"/>
                 </div>
 
                 <div class="col-md-12 fv-row fv-plugins-icon-container">
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                         <span class="required">CATEGORY</span>
                     </label>
-                    <select name="category_id" data-control="select2" data-dropdown-parent="#add_data" data-placeholder="Select a Category..." class="form-select form-select-solid">
+                    <select name="category_id" data-name="id_category" data-control="select2" data-dropdown-parent="#add_data" data-placeholder="Select a Category..." class="form-select form-select-solid">
                         <option value="">Select a Category...</option>
                         @foreach ($arr as $key => $val)
                             <option value="{{$val->id}}">{{$val->name}}</option>
@@ -145,14 +145,14 @@
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                         <span class="required">PRICE</span>
                     </label>
-                    <input type="text" class="form-control form-control-solid" placeholder="Price" name="price" id="price"/>
+                    <input type="text" class="form-control form-control-solid" placeholder="Price" name="price" data-name="price" id="price"/>
                 </div>
 
                 <div class="d-flex flex-column mb-8 fv-row">
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                         <span class="required">DESCRIPTION</span>
                     </label>
-                    <textarea name="description" id="description" rows="5" class="form-control form-control-solid" placeholder="Description"></textarea>
+                    <textarea name="description" data-name="description" id="description" rows="5" class="form-control form-control-solid" placeholder="Description"></textarea>
                 </div>
 
                 <div class="col-md-12 fv-row fv-plugins-icon-container">
@@ -162,7 +162,7 @@
                     <input type="file" class="form-control form-control-solid" name="add_image" id="foto"/>
                 </div>
 
-                <input type="hidden" id="foto_name" name="foto_name">
+                <input type="hidden" id="foto_name" name="foto_name" data-name="img">
             </div>
             <div class="modal-footer flex-end">
                 <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
@@ -188,10 +188,11 @@
     });
 
     $(document).on("click", "[data-name='add_data']", function (e) {
-        $('#name').val('');
-        $('#price').val('');
-        $('#description').val('');
-        $('#foto').val('');
+        $('[data-name="id_category"]').val('').trigger("change");
+        $('[data-name="name"]').val('');
+        $('[data-name="price"]').val('');
+        $('[data-name="description"]').val('');
+        $('[data-name="img"]').val('');
         $('#add_data').modal('show');
     });
 
@@ -225,6 +226,53 @@
 
         }
     });
+
+    $(document).on("click", "[data-name='save_data']", function (e) {
+
+    $('.preloader').show();
+    var name        = $('[data-name="name"]').val();
+    var price       = $('[data-name="price"').val();
+    var description = $('[data-name="description"').val();
+    var foto        = $('[data-name="foto"').val();
+
+    var id_category  = $('[data-name="id_category"]').val();
+    var name         = $('[data-name="name"]').val();
+    var price        = $('[data-name="price"]').val();
+    var description  = $('[data-name="description"]').val();
+    var img          = $('[data-name="img"]').val();
+    
+    $.ajax({
+        type: "POST",
+        url: "{{ route('addproduct') }}",
+        data: {id_category:id_category,name:name,price:price,description:description,img:img},
+        cache: false,
+        success: function(data) {
+            $('.preloader').hide();
+            Swal.fire({
+                position:'center',
+                title: 'Success!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            }).then((data) => {
+                location.reload();
+            })
+        },            
+        error: function (data) {
+            $('.preloader').hide();
+            Swal.fire({
+                position:'center',
+                title: 'Action Not Valid!',
+                icon: 'warning',
+                showConfirmButton: true,
+                // timer: 1500
+            }).then((data) => {
+                // location.reload();
+            })
+        }
+    });
+
+});
 
 </script>
 
