@@ -42,5 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('addproduct',['as'=> 'addproduct','uses'=>'MasterDataController@addproduct']);
     Route::post('showDataproduct',['as'=> 'showDataproduct','uses'=>'MasterDataController@showDataproduct']);
     Route::post('upload_img_prod',['as'=>'upload_img_prod','uses'=> 'MasterDataController@upload_img_prod']);
+    Route::get('layanan',['as'=> 'layanan','uses'=>'MasterDataController@layanan']);
+    Route::post('addlayanan',['as'=> 'addlayanan','uses'=>'MasterDataController@addlayanan']);
+    
     
 });

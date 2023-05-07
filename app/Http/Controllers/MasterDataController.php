@@ -123,4 +123,28 @@ class MasterDataController extends Controller
         return response($arr);
     }
 
+    function layanan()
+    {
+        $idn_user   = idn_user(auth::user()->id);
+        $arr        = listlayanan();
+        $data = array(
+            'idn_user'  => $idn_user,
+            'title'     => 'Layanan',
+            'arr'       => $arr,
+        );
+
+        return view('MasterData.layanan')->with($data);
+    }
+
+    function addlayanan(Request $request)
+    {
+        $name       = $request['name'];
+        $is_active  = 1;
+        $update_by  = auth::user()->id;
+
+        DB::insert("INSERT INTO mst_layanan (name,is_active,update_by) values (?,?,?)", [$name,$is_active,$update_by]);
+
+        return response('success');
+    }
+
 }

@@ -53,6 +53,13 @@ function listproduct(){
 
 //End Action Product
 
+//Action Layanan
+function listlayanan(){
+    $arr   = DB::select("SELECT * FROM mst_layanan");
 
+    return $arr;
+}
+
+//End action layanan
 
 ?>

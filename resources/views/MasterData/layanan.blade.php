@@ -171,7 +171,7 @@
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <div class="modal-content">
             <div class="modal-header" id="">
-                <h2>Edit Category</h2>
+                <h2>Edit Layanan</h2>
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <span class="svg-icon svg-icon-1">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -220,7 +220,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('addcategory') }}",
+            url: "{{ route('addlayanan') }}",
             data: {name:name},
             cache: false,
             success: function(data) {
