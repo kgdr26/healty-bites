@@ -20,8 +20,13 @@ class LandingPage extends Controller
 {
     function Landing()
     {
+        $category   = listcategory();
+        $product    = listproduct();
         $data = array(
-            'title' => 'Healty Bites'
+            'title'         => 'Healty Bites',
+            'page'          => 'landingpage.home',       
+            'category'      => $category,
+            'product'       => $product
         );
 
         return view('landingpage.list')->with($data);

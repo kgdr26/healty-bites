@@ -105,7 +105,7 @@
 
         @include('landingpage.header')
 
-        @include('landingpage.home')
+        @include($page)
         
         @include('landingpage.footer')
         <!-- Back to top -->

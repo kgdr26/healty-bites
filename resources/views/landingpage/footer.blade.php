@@ -67,10 +67,10 @@ Footer START -->
 				<h5 class="mb-2 mb-md-4">Contact</h5>
 				<!-- Time -->
 				<p class="mb-2">
-					Toll free:<span class="h6 fw-light ms-2">+65 82280955</span>
+					Toll free:<span class="h6 fw-light ms-2">+62 899999999</span>
 				</p>
 
-				<p class="mb-0">Email:<span class="h6 fw-light ms-2">admin@ateammedic.com</span></p>
+				<p class="mb-0">Email:<span class="h6 fw-light ms-2">admin@healtybites.com</span></p>
 
 				<div class="row g-2 mt-2">
 					<!-- Google play store button -->
