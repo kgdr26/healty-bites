@@ -222,6 +222,7 @@
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Links -->
 					<li><a class="dropdown-item bg-danger-soft-hover" href="{{route('login')}}"><i class="bi bi-power fa-fw me-2"></i>Sign In</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="{{route('register')}}"><i class="bi bi-power fa-fw me-2"></i>register</a></li>
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Dark mode options START -->
 					<li>

@@ -68,6 +68,14 @@
         <script src="{{asset('assets/plugin_tenp/plugins.bundle.js')}}"></script>
         <script src="{{asset('assets/plugin_tenp/scripts.bundle.js')}}"></script>
         <!--end::Global Javascript Bundle-->
+
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
     </head>
     <!--end::Head-->
 
@@ -118,86 +126,115 @@
                 </div>
                 <!--begin::Aside-->
 
-                <!--begin::Body-->
                 <div class="d-flex flex-column flex-lg-row-fluid py-10">
                     <!--begin::Content-->
                     <div class="d-flex flex-center flex-column flex-column-fluid">
                         <!--begin::Wrapper-->
-                        <div class="w-lg-500px p-10 p-lg-15 mx-auto">
-
-                            @if(session('error'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ Session::get('error') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            @endif
-
+                        <div class="w-lg-600px p-10 p-lg-15 mx-auto">
+                
                             <!--begin::Form-->
-                            <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"  action="{{route('login_post')}}" method="POST">
-                                @csrf
+                            <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_up_form">
                                 <!--begin::Heading-->
-                                <div class="text-center mb-10">
+                                <div class="mb-10 text-center">
                                     <!--begin::Title-->
                                     <h1 class="text-dark mb-3">
-                                        Sign In to Healty Bites </h1>
+                                        Create an Account
+                                    </h1>
                                     <!--end::Title-->
-
+                
                                     <!--begin::Link-->
                                     <div class="text-gray-400 fw-semibold fs-4">
-                                        New Here?
-
-                                        <a href="{{route('register')}}" class="link-primary fw-bold" data-name="add_data">
-                                            Create an Account
+                                        Already have an account?
+                
+                                        <a href="{{route('login')}}" class="link-primary fw-bold">
+                                            Sign in here
                                         </a>
                                     </div>
                                     <!--end::Link-->
                                 </div>
-                                <!--begin::Heading-->
+                                <!--end::Heading-->
+                
+                                <!--begin::Separator-->
+                                <div class="d-flex align-items-center mb-10">
+                                    <div class="border-bottom border-gray-300 mw-50 w-100"></div>
+                                    <span class="fw-semibold text-gray-400 fs-7 mx-2">OR</span>
+                                    <div class="border-bottom border-gray-300 mw-50 w-100"></div>
+                                </div>
+                                <!--end::Separator-->
 
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fs-6 fw-bold text-dark">Username</label>
-                                    <!--end::Label-->
-
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" />
-                                    <!--end::Input-->
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label class="form-label fw-bold text-dark fs-6">Name</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" data-name="name" autocomplete="off">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Input group-->               
+                
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label class="form-label fw-bold text-dark fs-6">Email</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" data-name="email" autocomplete="off">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Input group-->
-
+                
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-10">
+                                <div class="mb-10 fv-row fv-plugins-icon-container" data-kt-password-meter="true">
                                     <!--begin::Wrapper-->
-                                    <div class="d-flex flex-stack mb-2">
+                                    <div class="mb-1">
                                         <!--begin::Label-->
-                                        <label class="form-label fw-bold text-dark fs-6 mb-0">Password</label>
+                                        <label class="form-label fw-bold text-dark fs-6">
+                                            Password
+                                        </label>
                                         <!--end::Label-->
-
-                                        <!--begin::Link-->
-                                        {{-- <a href=""
-                                            class="link-primary fs-6 fw-bold">
-                                            Forgot Password ?
-                                        </a> --}}
-                                        <!--end::Link-->
+                
+                                        <!--begin::Input wrapper-->
+                                        <div class="position-relative mb-3">
+                                            <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="password" data-name="password" autocomplete="off">
+                
+                                            <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                data-kt-password-meter-control="visibility">
+                                                <i class="bi bi-eye-slash fs-2"></i>
+                                                <i class="bi bi-eye fs-2 d-none"></i>
+                                            </span>
+                                        </div>
+                                        <!--end::Input wrapper-->
+                
+                                        <!--begin::Meter-->
+                                        <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                        </div>
+                                        <!--end::Meter-->
                                     </div>
                                     <!--end::Wrapper-->
-
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
-                                    <!--end::Input-->
+                
+                                    <!--begin::Hint-->
+                                    <div class="text-muted">
+                                        Use 8 or more characters with a mix of letters, numbers &amp; symbols.
+                                    </div>
+                                    <!--end::Hint-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Input group--->
+                
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-5 fv-plugins-icon-container">
+                                    <label class="form-label fw-bold text-dark fs-6">Confirm Password</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" data-name="confirm_password" autocomplete="off">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Input group-->
-
+                
                                 <!--begin::Actions-->
                                 <div class="text-center">
-                                    <!--begin::Submit button-->
-                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                                    <button type="button" class="btn btn-lg btn-primary" data-name="save_data">
                                         <span class="indicator-label">
-                                            Continue
+                                            Submit
                                         </span>
                                     </button>
-                                    <!--end::Submit button-->
                                 </div>
                                 <!--end::Actions-->
                             </form>
@@ -206,26 +243,85 @@
                         <!--end::Wrapper-->
                     </div>
                     <!--end::Content-->
-
+                
                     <!--begin::Footer-->
                     <div class="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
                         <!--begin::Links-->
                         <div class="d-flex flex-center fw-semibold fs-6">
                             <a href="" class="text-muted text-hover-primary px-2" target="_blank">About</a>
-
+                
                             <a href="" class="text-muted text-hover-primary px-2" target="_blank">Support</a>
-
+                
                             <a href="" class="text-muted text-hover-primary px-2" target="_blank">Purchase</a>
                         </div>
                         <!--end::Links-->
                     </div>
                     <!--end::Footer-->
                 </div>
-                <!--end::Body-->
+
             </div>
             <!--end::Authentication - Sign-in-->
         </div>
         <!--end::Main-->
+
+        <script>
+            $(document).on("click", "[data-name='save_data']", function (e) {
+                var username    = $('[data-name="username"]').val();
+                var password    = $('[data-name="password"]').val();
+                var confirm_password    = $('[data-name="confirm_password"]').val();
+                var name        = $('[data-name="name"]').val();
+                var email       = $('[data-name="email"]').val();
+                var role_id     = '2';
+                var foto        = 'default.jpg';
+
+                console.log(password+"-"+confirm_password);
+                if(password == confirm_password){
+
+                    // console.log(foto);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('saveregister') }}",
+                        data: {username:username,password:password,role_id:role_id,name:name,email:email,foto:foto},
+                        cache: false,
+                        success: function(data) {
+                            // console.log(data);
+                            Swal.fire({
+                                position:'center',
+                                title: 'Success!',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then((data) => {
+                                // location.reload();
+                                window.location.href = "{{route('login')}}";
+                            })
+                        },            
+                        error: function (data) {
+                            Swal.fire({
+                                position:'center',
+                                title: 'Action Not Valid!',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                // timer: 1500
+                            }).then((data) => {
+                                // location.reload();
+                            })
+                        }
+                    });
+
+                }else{
+                    Swal.fire({
+                        position:'center',
+                        title: 'Password is not match!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false
+                }
+            });
+
+        </script>
 
     </body>
     <!--end::Body-->

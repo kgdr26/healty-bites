@@ -20,14 +20,14 @@ use App\Http\Controllers\AuthController;
 // Route::get('/',['as'=>'/login','uses'=> 'AuthController@ShowFormLogin']);
 
 Route::get('/',['as'=>'/landingpage','uses'=> 'LandingPage@Landing']);
-
+Route::get('home',['as'=>'home','uses'=> 'LandingPage@Landing']);
 
 Route::get('login',['as'=> 'login','uses'=>'AuthController@ShowFormLogin']);
 Route::post('login', ['as'=>'login_post','uses'=>'AuthController@login'] );
 Route::get('logout', ['as'=>'logout','uses'=>'AuthController@logout']);
+Route::get('register',['as'=> 'register','uses'=>'RegisterController@register']);
+Route::post('saveregister',['as'=> 'saveregister','uses'=>'RegisterController@saveregister']);
 
-Route::post('adduser',['as'=> 'adduser','uses'=>'UsersController@adduser']);
-Route::post('upload_img',['as'=>'upload_img','uses'=> 'UsersController@upload_img']);
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard
@@ -35,11 +35,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Users
     Route::get('users',['as'=> 'users','uses'=>'UsersController@Users']);
-    
+    Route::post('adduser',['as'=> 'adduser','uses'=>'UsersController@adduser']);
     Route::get('role',['as'=> 'role','uses'=>'UsersController@Role']);
     Route::post('addrole',['as'=> 'addrole','uses'=>'UsersController@addRole']);
     Route::post('showdatarole',['as'=> 'showdatarole','uses'=>'UsersController@showDataRole']);
-    
+    Route::post('upload_img',['as'=>'upload_img','uses'=> 'UsersController@upload_img']);
 
     // Master Data
     Route::get('category',['as'=> 'category','uses'=>'MasterDataController@category']);
