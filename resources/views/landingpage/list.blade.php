@@ -79,10 +79,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap">
 
         <!-- Plugins CSS -->
-        {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/all.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap-icons.css')}}"> --}}
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="https://eduport.webestica.com/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/tiny-slider.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('assets/landing/css/glightbox.css')}}">
 
