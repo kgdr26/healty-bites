@@ -21,6 +21,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/',['as'=>'/landingpage','uses'=> 'LandingPage@Landing']);
 Route::get('home',['as'=>'home','uses'=> 'LandingPage@Landing']);
+Route::post('realtimetexthome',['as'=> 'realtimetexthome','uses'=>'LandingPage@realtimetexthome']);
 
 Route::get('login',['as'=> 'login','uses'=>'AuthController@ShowFormLogin']);
 Route::post('login', ['as'=>'login_post','uses'=>'AuthController@login'] );
@@ -52,6 +53,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('layanan',['as'=> 'layanan','uses'=>'MasterDataController@layanan']);
     Route::post('addlayanan',['as'=> 'addlayanan','uses'=>'MasterDataController@addlayanan']);
     Route::get('contentlayanan',['as'=> 'contentlayanan','uses'=>'MasterDataController@contentlayanan']);
+    Route::post('addcontentlayanan',['as'=> 'addcontentlayanan','uses'=>'MasterDataController@addcontentlayanan']);
+    
+
+    // Setting Landing Pag
+    Route::get('settlandinghome',['as'=> 'settlandinghome','uses'=>'SettLandingController@settlandinghome']);
+    
     
     
 });

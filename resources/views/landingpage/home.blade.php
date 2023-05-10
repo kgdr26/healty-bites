@@ -151,7 +151,7 @@ Main Banner START -->
                 </h1>
                 
                 <!-- Content -->
-                <p class="my-4 lead">Healthy Bites offers delicious plates, wraps, salads and so many other healthy mediterranean options that are sure to make you feel great while keeping you full. We have a wide variety of vegetarian and vegan options on our menu that are sure to please everyone. Come try us out yourself! We know you will .</p>
+                <p class="my-4 lead" data-name="landing_1">-</p>
 
                 <div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
                     <!-- Button -->
@@ -228,7 +228,7 @@ Main Banner START -->
 				</div>
 
 				<!-- Active student --> 
-				<div class="p-3 bg-success d-inline-block rounded-4 shadow-lg position-absolute top-50 end-0 translate-middle-y mt-n7 z-index-1 d-none d-md-block" style="background:url(assets/images/pattern/01.png) no-repeat center center; background-size:cover;">
+				<div class="p-3 bg-success d-inline-block rounded-4 shadow-lg position-absolute top-50 end-0 translate-middle-y mt-n7 z-index-1 d-none d-md-block">
 					<p class="text-white">Healthy Bites member</p>
 					<!-- Avatar group -->
 					<ul class="avatar-group mb-0">
@@ -586,7 +586,7 @@ Reviews START -->
                             </svg>
                         </figure>
 
-                        <div class="p-3 bg-primary d-inline-block rounded-4 shadow-lg text-center" style="background:url(assets/images/pattern/02.png) no-repeat center center; background-size:cover;">
+                        <div class="p-3 bg-primary d-inline-block rounded-4 shadow-lg text-center">
                             <!-- Info -->
                             <h5 class="text-white mb-0">4.5/5.0</h5>
                             <!-- Rating -->
@@ -633,7 +633,7 @@ Reviews START -->
             <div class="col-xl-5 order-1 text-center text-xl-start">
                 <!-- Title -->
                 <h2 class="fs-1">Some valuable feedback from our customers</h2>
-                <p>Supposing so be resolving breakfast am or perfectly. It drew a hill from me. Valley by oh twenty direct me so. Departure defective arranging rapturous did believe him all had supported. Family months lasted simple set nature vulgar him. Picture for attempt joy excited ten carried manners talking how.</p>
+                <p data-name="landing_2">-</p>
             </div>
         </div> <!-- Row END -->
     </div>
@@ -643,3 +643,36 @@ Reviews END -->
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
+
+
+<script>
+    $(document).ready(function() {
+        setTimeout(realtimetexthome,1000);
+    });
+</script>
+
+<script>
+    function realtimetexthome() {
+        $.ajax({
+            url: "{{ route('realtimetexthome') }}",
+            type: "POST",
+            data: {},
+            dataType: 'json',
+            global: false,
+            success: function(data) {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    var title = data[i].id;
+                    var value = data[i].text;
+                    var key = $('[data-name="landing_'+title+'"]');
+                    key.text(value);
+                }
+
+            },
+            complete: function (data) {
+                // Schedule the next
+                setTimeout(realtimetexthome, 1000);
+            }
+        });
+    }
+</script>

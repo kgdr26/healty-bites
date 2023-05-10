@@ -38,4 +38,10 @@ class LandingPage extends Controller
         return view('landingpage.list')->with($data);
     }
 
+    function realtimetexthome(){
+        $arr     = DB::select("SELECT * FROM mst_sett_home");
+
+        return response($arr);
+    }
+
 }

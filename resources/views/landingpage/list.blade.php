@@ -5,6 +5,7 @@
         <title>Healty-Bites</title>
 
         <!-- Meta Tags -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="author" content="Webestica.com">
@@ -89,12 +90,32 @@
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-7N7LGGGWT1"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="{{asset('assets/landing/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- Vendors -->
+        <script src="{{asset('assets/landing/js/tiny-slider.js')}}"></script>
+        <script src="{{asset('assets/landing/js/glightbox.js')}}"></script>
+        <script src="{{asset('assets/landing/js/purecounter_vanilla.js')}}"></script>
+
+        <!-- Template Functions -->
+        <script src="{{asset('assets/landing/js/functions.js')}}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
             gtag('config', 'G-7N7LGGGWT1');
+        </script>
+
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         </script>
 
     </head>
@@ -108,16 +129,5 @@
         @include('landingpage.footer')
         <!-- Back to top -->
         <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
-
-        <!-- Bootstrap JS -->
-        <script src="{{asset('assets/landing/js/bootstrap.bundle.min.js')}}"></script>
-
-        <!-- Vendors -->
-        <script src="{{asset('assets/landing/js/tiny-slider.js')}}"></script>
-        <script src="{{asset('assets/landing/js/glightbox.js')}}"></script>
-        <script src="{{asset('assets/landing/js/purecounter_vanilla.js')}}"></script>
-
-        <!-- Template Functions -->
-        <script src="{{asset('assets/landing/js/functions.js')}}"></script>
     </body>
 </html>

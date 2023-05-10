@@ -164,11 +164,13 @@ class MasterDataController extends Controller
 
     function addcontentlayanan(Request $request)
     {
-        $name       = $request['name'];
-        $is_active  = 1;
-        $update_by  = auth::user()->id;
+        $id_layanan     = $request['id_layanan'];
+        $name           = $request['name'];
+        $content        = $request['content'];
+        $is_active      = 1;
+        $update_by      = auth::user()->id;
 
-        DB::insert("INSERT INTO mst_contentlayanan (name,is_active,update_by) values (?,?,?)", [$name,$is_active,$update_by]);
+        DB::insert("INSERT INTO mst_contentlayanan (id_layanan,name,content,is_active,update_by) values (?,?,?,?,?)", [$id_layanan,$name,$content,$is_active,$update_by]);
 
         return response('success');
     }
