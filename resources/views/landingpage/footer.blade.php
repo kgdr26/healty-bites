@@ -9,8 +9,8 @@ Footer START -->
 			<div class="col-lg-3">
 				<!-- logo -->
 				<a class="me-0" href="index.html">
-					<img class="light-mode-item h-40px" src="{{asset('assets/plugin_tenp/logo.png')}}" alt="logo">
-					<img class="dark-mode-item h-40px" src="{{asset('assets/plugin_tenp/logo.png')}}" alt="logo">
+					<img class="light-mode-item h-40px" src="{{asset('/img/iconmini/Logo-6.png')}}" alt="logo">
+					<img class="dark-mode-item h-40px" src="{{asset('/img/iconmini/Logo-6.png')}}" alt="logo">
 				</a>
 				<p class="my-3">Text sample text sample text sample text sample.</p>
 				<!-- Social media icon -->

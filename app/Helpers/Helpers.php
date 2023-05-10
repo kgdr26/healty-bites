@@ -62,4 +62,15 @@ function listlayanan(){
 
 //End action layanan
 
+//Action Layanan
+function listcontentlayanan(){
+    $arr   = DB::select("SELECT * FROM mst_contentlayanan");
+
+    return $arr;
+}
+
+//End action layanan
+
+
+
 ?>

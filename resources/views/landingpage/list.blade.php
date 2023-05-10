@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Heakty-Bites</title>
+        <title>Healty-Bites</title>
 
         <!-- Meta Tags -->
         <meta charset="utf-8">

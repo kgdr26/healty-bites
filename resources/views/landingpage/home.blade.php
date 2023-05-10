@@ -155,7 +155,7 @@ Main Banner START -->
 
                 <div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
                     <!-- Button -->
-                    <a href="#" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
+                    <a href="{{route('register')}}" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
                     <!-- Video button -->
                     <div class="d-flex align-items-center justify-content-center py-2 ms-0 ms-sm-4">
                         <a data-glightbox data-gallery="office-tour" href="" class="btn btn-round btn-primary-shadow mb-0 overflow-visible me-7"> 
@@ -232,18 +232,12 @@ Main Banner START -->
 					<p class="text-white">Healthy Bites member</p>
 					<!-- Avatar group -->
 					<ul class="avatar-group mb-0">
-						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" src="https://eduport.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
-						</li>
-						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" src="https://eduport.webestica.com/assets/images/avatar/02.jpg" alt="avatar">
-						</li>
-						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" src="https://eduport.webestica.com/assets/images/avatar/03.jpg" alt="avatar">
-						</li>
-						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" src="https://eduport.webestica.com/assets/images/avatar/04.jpg" alt="avatar">
-						</li>
+                        @foreach ($member as $key => $val)
+                            <li class="avatar avatar-sm">
+                                <img class="avatar-img rounded-circle border-white" src="{{asset('img/profile').'/'.$val->foto}}" alt="avatar">
+                            </li>  
+                        @endforeach
+
 						<li class="avatar avatar-sm">
 							<div class="avatar-img rounded-circle border-white bg-primary">
 								<span class="text-white position-absolute top-50 start-50 translate-middle small">1K+</span>
@@ -426,12 +420,13 @@ Action box START -->
                             <div class="row align-items-center">
                                 <!-- Title -->
                                 <div class="col-lg-7">
-                                    <h3 class="text-white">Become an Instructor!</h3>
-                                    <p class="text-white mb-3 mb-lg-0">Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished.</p>
+                                    <h3 class="text-white">Confused what to eat?</h3>
+                                    <p class="text-white mb-3 mb-lg-0">
+                                        Come on, start from now on, eat healthy food so you can enjoy a better old age.</p>
                                 </div>
                                 <!-- Content and input -->
                                 <div class="col-lg-5 text-lg-end">
-                                    <a href="#" class="btn btn-outline-warning mb-0">Start Teaching Today</a>
+                                    <a href="#" class="btn btn-outline-warning mb-0">Start buying healthy food</a>
                                 </div>
                             </div>
                         </div>
@@ -463,7 +458,7 @@ Reviews START -->
                         <div class="bg-body shadow text-center p-4 rounded-3 position-relative mb-5 mb-md-0">
                             <!-- Avatar -->
                             <div class="avatar avatar-xl mb-3">
-                                <img class="avatar-img rounded-circle" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+                                <img class="avatar-img rounded-circle" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
                             </div>
                             <!-- Content -->
                             <blockquote>
@@ -482,7 +477,7 @@ Reviews START -->
                                 <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
                             </ul>
                             <!-- Info -->
-                            <h6 class="mb-0">Carolyn Ortiz</h6>
+                            <h6 class="mb-0">Kang Dru</h6>
                         </div>
                     </div>
 
@@ -494,16 +489,16 @@ Reviews START -->
                                 <i class="bi bi-shield-fill-check text-dark"></i>
                             </div>
                             <!-- Title -->
-                            <h6 class="mb-3">100+ Verified Mentors</h6>
+                            <h6 class="mb-3">Admin Healty Bites</h6>
                             <!-- Mentor Item -->
                             <div class="d-flex align-items-center mb-3">
                                 <!-- Avatar -->
                                 <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-1" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+                                    <img class="avatar-img rounded-1" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
                                 </div>
                                 <!-- Info -->
                                 <div class="ms-2">
-                                    <h6 class="mb-0">Lori Stevens</h6>
+                                    <h6 class="mb-0">Kang Dru</h6>
                                     <p class="mb-0 small">Tutor of physic</p>
                                 </div>
                             </div>
@@ -512,11 +507,11 @@ Reviews START -->
                             <div class="d-flex align-items-center mb-3">
                                 <!-- Avatar -->
                                 <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-1" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+                                    <img class="avatar-img rounded-1" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
                                 </div>
                                 <!-- Info -->
                                 <div class="ms-2">
-                                    <h6 class="mb-0">Billy Vasquez</h6>
+                                    <h6 class="mb-0">Kang Dru</h6>
                                     <p class="mb-0 small">Tutor of chemistry</p>
                                 </div>
                             </div>
@@ -525,11 +520,11 @@ Reviews START -->
                             <div class="d-flex align-items-center">
                                 <!-- Avatar -->
                                 <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-1" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+                                    <img class="avatar-img rounded-1" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
                                 </div>
                                 <!-- Info -->
                                 <div class="ms-2">
-                                    <h6 class="mb-0">Larry Lawson</h6>
+                                    <h6 class="mb-0">Kang Dru</h6>
                                     <p class="mb-0 small">Tutor of technology</p>
                                 </div>
                             </div>
@@ -611,7 +606,7 @@ Reviews START -->
                         <div class="bg-body shadow text-center p-4 rounded-3">
                             <!-- Avatar -->
                             <div class="avatar avatar-xl mb-3">
-                                <img class="avatar-img rounded-circle" src="{{asset('assets/image/default.jpg')}}" alt="avatar">
+                                <img class="avatar-img rounded-circle" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
                             </div>
                             <!-- Content -->
                             <blockquote>
@@ -630,16 +625,15 @@ Reviews START -->
                                 <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
                             </ul>
                             <!-- Info -->
-                            <h6 class="mb-0">Dennis Barrett</h6>
+                            <h6 class="mb-0">Kang Dru</h6>
                         </div>
                     </div>
                 </div> <!-- Row END -->
             </div>
             <div class="col-xl-5 order-1 text-center text-xl-start">
                 <!-- Title -->
-                <h2 class="fs-1">Some valuable feedback from our students</h2>
+                <h2 class="fs-1">Some valuable feedback from our customers</h2>
                 <p>Supposing so be resolving breakfast am or perfectly. It drew a hill from me. Valley by oh twenty direct me so. Departure defective arranging rapturous did believe him all had supported. Family months lasted simple set nature vulgar him. Picture for attempt joy excited ten carried manners talking how.</p>
-                <a href="#" class="btn btn-primary mb-0">View Reviews</a>
             </div>
         </div> <!-- Row END -->
     </div>
