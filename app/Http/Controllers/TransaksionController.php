@@ -22,10 +22,12 @@ class TransaksionController extends Controller
     {
         $idn_user   = idn_user(auth::user()->id);
         $arr        = listpesananall();
+        $seat       = listseat();
         $data = array(
             'idn_user'  => $idn_user,
-            'title'     => 'Orders',
-            'arr'       => $arr
+            'title'     => 'Pesanan',
+            'arr'       => $arr,
+            'seat'      => $seat
         );
 
         return view('Transaksi.list')->with($data);

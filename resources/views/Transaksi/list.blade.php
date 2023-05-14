@@ -7,16 +7,16 @@
         <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-2">
             <!--begin::Title-->
             <h1 class="text-dark fw-bold my-1 fs-2">
-                Orders <small class="text-muted fs-6 fw-normal ms-1"></small>
+                Pesanan <small class="text-muted fs-6 fw-normal ms-1"></small>
             </h1>
             <!--end::Title-->
 
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb fw-semibold fs-base my-1">
                 <li class="breadcrumb-item text-muted">
-                    <a href="" class="text-muted text-hover-primary">Transaction</a>
+                    <a href="" class="text-muted text-hover-primary">Produk</a>
                 </li>
-                <li class="breadcrumb-item text-muted">Orders </li>
+                <li class="breadcrumb-item text-muted">Pesanan </li>
             </ul>
             <!--end::Breadcrumb-->
         </div>
@@ -66,7 +66,6 @@
                     <thead>
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                             <th>NO</th>
-                            <th>CUSTOMER</th>
                             <th>KODE</th>
                             <th>NAME</th>
                             <th>HARGA</th>
@@ -84,7 +83,6 @@
                         @foreach ($arr as $key => $val)
                             <tr>
                                 <td>{{$no++}}</td>
-                                <td>{{strtoupper($val->name_cus)}}</td>
                                 <td>{{$val->kode}}</td>
                                 <td>{{strtoupper($val->name_product)}}</td>
                                 <td>{{ 'Rp '. number_format($val->harga, 0, ',', '.') }}</td>
@@ -93,7 +91,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-info me-3" data-item="">
+                                        <button type="button" class="btn btn-info me-3" data-name="show_data" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}}">
                                             Show Orders
                                         </button>
                                     </div>
@@ -114,7 +112,7 @@
 <!--end::Post-->
 
 {{-- Modal order Data --}}
-<div class="modal fade" id="show_data" tabindex="-1" aria-modal="true" role="dialog">
+<div class="modal fade" id="show_data_view" tabindex="-1" aria-modal="true" role="dialog">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -157,21 +155,21 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">QTY</span>
                             </label>
-                            <input type="number" class="form-control form-control-solid" placeholder="QTY" data-name="qty" id="qty"/>
+                            <input type="number" class="form-control form-control-solid" placeholder="QTY" data-name="qty" id="qty" disabled/>
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">TOTAL</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="TOTAL" data-name="total" id="total" disabled/>
+                            <input type="text" class="form-control form-control-solid" placeholder="harga" data-name="harga" id="harga" disabled/>
                         </div>
 
                         <div class="col-md-12 fv-row fv-plugins-icon-container mb-8">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">Order Method</span>
                             </label>
-                            <select name="order_method" data-name="order_method" id="order_method_order" data-control="select2" data-dropdown-parent="#order_data" class="form-select form-select-solid">
+                            <select name="order_method" data-name="order_method" id="order_method_order" data-control="select2" data-dropdown-parent="#order_data" class="form-select form-select-solid" disabled>
                                 <option value="">-- Select Methode --</option>
                                 <option value="1">Take Away</option>
                                 <option value="2">Reservation</option>
@@ -179,11 +177,11 @@
                             </select>
                         </div>
 
-                        <div class="col-md-12 fv-row fv-plugins-icon-container mb-8" data-name="show_payment_methode" style="display:none;">
+                        <div class="col-md-12 fv-row fv-plugins-icon-container mb-8" data-name="show_payment_methode">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">Payment Method</span>
                             </label>
-                            <select name="payment_method" data-name="payment_method" id="payment_method_order" data-control="select2" data-dropdown-parent="#order_data" class="form-select form-select-solid">
+                            <select name="payment_method" data-name="payment_method" id="payment_method_order" data-control="select2" data-dropdown-parent="#order_data" class="form-select form-select-solid" disabled>
                                 <option value="">-- Payment Method --</option>
                                 <option value="1">Transfer</option>
                                 <option value="2">OVO</option>
@@ -191,12 +189,19 @@
                             </select>
                         </div>
 
+                        <div class="col-md-12 fv-row fv-plugins-icon-container" data-name="bukti_pembayaran">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Proof Of Payment</span>
+                            </label>
+                            <input type="file" class="form-control form-control-solid" name="add_image" id="foto" disabled/>
+                        </div>
+
                     </div>
-                    <div class="col-12 mb-8" data-name="show_select_meja" style="display:none;">
+                    <div class="col-12 mb-8" data-name="show_select_meja">
                         <div class="row">
                             @foreach ($seat as $key => $val)
-                                <div class="col-2" data-name="klik_meja" data-value="{{$val->id}}">
-                                    <div class="card card-meja" data-status="st{{$val->status}}">
+                                <div class="col-2" data-value="{{$val->id}}" data-name="st{{$val->id}}">
+                                    <div class="card card-meja" data-status="">
                                         {{$val->name}}
                                     </div>
                                 </div> 
@@ -205,7 +210,8 @@
                     </div>
 
                     <div class="col-md-12 fv-row fv-plugins-icon-container mb-8">
-                        <button class="btn btn btn-success w-100" data-name="create_order_data">Create Order</button>
+                        <input type="hidden" id="id_order_approve">
+                        <button class="btn btn btn-success w-100" data-name="approve_order">Approve</button>
                     </div>
 
                     <div class="col-12">
@@ -271,6 +277,80 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+
+<script>
+    $(document).on("click", "[data-name='show_data']", function (e) {
+        $('.preloader').show();
+        var id          = $(this).attr("data-item").split(",")[0];
+        var name        = $(this).attr("data-item").split(",")[1];
+        var id_order    = $(this).attr("data-item").split(",")[2];
+        var qty         = $(this).attr("data-item").split(",")[3];
+        var harga       = $(this).attr("data-item").split(",")[4];
+        var order_method    = $(this).attr("data-item").split(",")[5];
+        var payment_method  = $(this).attr("data-item").split(",")[6];
+        var id_meja     = $(this).attr("data-item").split(",")[7];
+        $('[data-name="name_view_data_order"]').text(name);
+        $('#id_product_order').val(id);
+        $('#qty').val(qty);
+        $('#harga').val(harga);
+        $('#order_method_order').val(order_method).trigger("change");
+        $('#payment_method_order').val(payment_method).trigger("change");
+        $('#id_order_approve').val(id_order);
+
+        if(order_method === '2'){
+            $('[data-name="show_payment_methode"]').css('display', 'none');
+            $('[data-name="show_select_meja"]').css('display', 'block');
+            $('[data-name="bukti_pembayaran"]').css('display', 'none');
+            $('[data-name="st'+id_meja+'"]').addClass('klick');
+        }else if(order_method === '3'){
+            $('[data-name="show_payment_methode"]').css('display', 'block');
+            $('[data-name="show_select_meja"]').css('display', 'none');
+            $('[data-name="bukti_pembayaran"]').css('display', 'block');
+        }else{
+            $('[data-name="show_payment_methode"]').css('display', 'none');
+            $('[data-name="show_select_meja"]').css('display', 'none');
+            $('[data-name="bukti_pembayaran"]').css('display', 'none');
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('viewdataprod') }}",
+            data: {id:id},
+            cache: false,
+            success: function(data) {
+                // console.log(data);
+                $('#image_view_order').html(data.foto);
+                $('#id_price_order').text(data.price);
+                $('#id_description_order').text(data.description);
+                $('#total_serving_order').text(data.total_serving+' g');
+                $('#total_energy_order').text(data.total_energy+' kcals');
+                $('#total_protein_order').text(data.total_protein+' g');
+                $('#total_fat_order').text(data.total_fat+' g');
+                $('#total_carbohydrate_order').text(data.total_carbohydrate+' g');
+                $('#harga_order').val(data.price);
+
+
+                $('#show_data_view').modal('show');
+                $('.preloader').hide();
+            },            
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        });
+
+
+    });
+  
+</script>
 
 <script>
     "use strict";

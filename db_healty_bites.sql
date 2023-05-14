@@ -16,6 +16,36 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_healty_bites` /*!40100 DEFAULT CHARA
 
 USE `db_healty_bites`;
 
+/*Table structure for table `mst_bahan` */
+
+DROP TABLE IF EXISTS `mst_bahan`;
+
+CREATE TABLE `mst_bahan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `serving` varchar(255) DEFAULT NULL,
+  `energy` varchar(255) DEFAULT NULL,
+  `protein` varchar(255) DEFAULT NULL,
+  `fat` varchar(255) DEFAULT NULL,
+  `carbohydrate` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `type_bahan` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `is_active` int(11) DEFAULT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+/*Data for the table `mst_bahan` */
+
+insert  into `mst_bahan`(`id`,`name`,`serving`,`energy`,`protein`,`fat`,`carbohydrate`,`foto`,`type_bahan`,`price`,`is_active`,`update_by`,`last_update`) values 
+(1,'Organic Romaine','120','20.0','1.0','0','4.0','42217.jpg',2,1000,1,1,'2023-05-13 06:59:24'),
+(2,'Red & White Cabbage','150','37.0','2.0','0','9.0','57143.jpg',2,1000,1,1,'2023-05-13 06:59:00'),
+(3,'Avocado','40','64.0','1.0','6.0','3.0','17536.jpg',3,5000,1,1,'2023-05-13 07:03:16'),
+(4,'Honey Mustard','5','10.5','0','1.0','0.5','87182.jpg',4,5000,1,1,'2023-05-13 07:26:46'),
+(5,'Cheddar','5','10.5','0','1.5','0.5','11268.jpg',3,5000,1,1,'2023-05-13 07:56:43');
+
 /*Table structure for table `mst_category` */
 
 DROP TABLE IF EXISTS `mst_category`;
@@ -23,18 +53,20 @@ DROP TABLE IF EXISTS `mst_category`;
 CREATE TABLE `mst_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `is_active` int(11) DEFAULT NULL,
   `update_by` int(11) DEFAULT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mst_category` */
 
-insert  into `mst_category`(`id`,`name`,`is_active`,`update_by`,`last_update`) values 
-(1,'LUNCH',1,1,'2023-04-20 16:49:13'),
-(2,'Snack',1,1,'2023-04-20 16:51:17'),
-(3,'salads',1,1,'2023-04-20 17:44:25');
+insert  into `mst_category`(`id`,`name`,`price`,`foto`,`is_active`,`update_by`,`last_update`) values 
+(1,'salads',5000,'75815.jpg',1,1,'2023-05-12 23:19:55'),
+(2,'WRAPS',5000,'18446.jpg',1,1,'2023-05-12 23:20:52'),
+(3,'Warm Quinoa Bowls',10000,'59407.jpg',1,1,'2023-05-12 23:21:14');
 
 /*Table structure for table `mst_contentlayanan` */
 
@@ -49,13 +81,9 @@ CREATE TABLE `mst_contentlayanan` (
   `update_by` int(11) DEFAULT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `mst_contentlayanan` */
-
-insert  into `mst_contentlayanan`(`id`,`id_layanan`,`name`,`content`,`is_active`,`update_by`,`last_update`) values 
-(1,1,'Tes dingin','Tesnnnmndsnsdncn skjd vcj xdscvm xvdvsdvdsvdfbhgf',1,1,'2023-05-10 14:43:46'),
-(2,2,'ggggggg','dfgdfgdfbgdfbgdfbdfbfddfdfxdzsfvb',1,1,'2023-05-10 14:44:07');
 
 /*Table structure for table `mst_layanan` */
 
@@ -68,13 +96,9 @@ CREATE TABLE `mst_layanan` (
   `update_by` int(11) DEFAULT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `mst_layanan` */
-
-insert  into `mst_layanan`(`id`,`name`,`is_active`,`update_by`,`last_update`) values 
-(1,'food',1,1,'2023-05-07 16:58:38'),
-(2,'Drink',1,1,'2023-05-07 16:58:55');
 
 /*Table structure for table `mst_product` */
 
@@ -87,18 +111,20 @@ CREATE TABLE `mst_product` (
   `price` int(11) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
+  `bread` varchar(255) DEFAULT NULL,
+  `greens` varchar(255) DEFAULT NULL,
+  `toppings` varchar(255) DEFAULT NULL,
+  `dressings` varchar(255) DEFAULT NULL,
   `is_active` int(11) DEFAULT NULL,
   `update_by` int(11) DEFAULT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mst_product` */
 
-insert  into `mst_product`(`id`,`id_category`,`name`,`price`,`description`,`img`,`is_active`,`update_by`,`last_update`) values 
-(1,1,'Bold Bulgogi',15000,'Lagi kebanyakan makan daging melulu dari kemarin, dan malam ini waktunya go green dulu ????\r\nSaya order “Bold Bulgogi” yg harganya 15k. Nikmat banget nih! Semangkuk full isi berbagai macam sayuran dengan potongan daging bulgogi khas korea. MUST!','contoh_1.png',1,1,'2023-05-03 19:06:59'),
-(2,2,'Tes',30000,'bjkjkj','71493.png',1,1,'2023-05-10 15:29:35'),
-(3,1,'Cobb',40000,'Makananan enak sehati bergizi murah pula harga nya','71493.png',1,1,'2023-05-07 09:53:04');
+insert  into `mst_product`(`id`,`id_category`,`name`,`price`,`description`,`img`,`bread`,`greens`,`toppings`,`dressings`,`is_active`,`update_by`,`last_update`) values 
+(1,1,'Hail Caesar',45000,'Enak, Nikmat, & Bergizi , poko nya enak banget dah murah pula berkualitas','51073.png','[]','[\"1\",\"2\"]','[\"3\",\"5\"]','[\"4\"]',1,1,'2023-05-13 10:58:20');
 
 /*Table structure for table `mst_role` */
 
@@ -119,6 +145,44 @@ insert  into `mst_role`(`id`,`name`,`is_active`,`update_by`,`last_update`) value
 (1,'ADMINISTRATOR',1,1,'2023-04-14 14:09:18'),
 (2,'CUSTOMER',1,1,'2023-04-15 19:29:52');
 
+/*Table structure for table `mst_seat` */
+
+DROP TABLE IF EXISTS `mst_seat`;
+
+CREATE TABLE `mst_seat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_active` int(11) DEFAULT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+/*Data for the table `mst_seat` */
+
+insert  into `mst_seat`(`id`,`name`,`status`,`is_active`,`update_by`,`last_update`) values 
+(1,'Meja 1',0,1,1,'2023-05-14 07:51:38'),
+(2,'Meja 2',0,1,1,'2023-05-14 07:54:15'),
+(3,'Meja 3',0,1,1,'2023-05-14 07:54:16'),
+(4,'Meja 4',1,1,1,'2023-05-14 09:54:33'),
+(5,'Meja 5',0,1,1,'2023-05-14 07:54:19'),
+(6,'Meja 6',0,1,1,'2023-05-14 07:54:20'),
+(7,'Meja 7',0,1,1,'2023-05-14 07:54:22'),
+(8,'Meja 8',1,1,1,'2023-05-14 10:10:01'),
+(9,'Meja 9',0,1,1,'2023-05-14 07:54:24'),
+(10,'Meja 10',0,1,1,'2023-05-14 07:54:25'),
+(11,'Meja 11',0,1,1,'2023-05-14 07:54:26'),
+(12,'Meja 12',0,1,1,'2023-05-14 07:54:27'),
+(13,'Meja 13',0,1,1,'2023-05-14 07:54:29'),
+(14,'Meja 14',0,1,1,'2023-05-14 07:54:30'),
+(15,'Meja 15',0,1,1,'2023-05-14 07:54:31'),
+(16,'Meja 16',0,1,1,'2023-05-14 07:54:32'),
+(17,'Meja 17',0,1,1,'2023-05-14 08:05:28'),
+(18,'Meja 18',0,1,1,'2023-05-14 07:54:35'),
+(19,'MEja 19',0,1,1,'2023-05-14 07:54:36'),
+(20,'MEja 20',0,1,1,'2023-05-14 07:54:38');
+
 /*Table structure for table `mst_sett_home` */
 
 DROP TABLE IF EXISTS `mst_sett_home`;
@@ -138,6 +202,57 @@ insert  into `mst_sett_home`(`id`,`text`,`update_by`,`last_update`) values
 (2,'Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting.',1,'2023-05-10 15:38:09'),
 (3,'Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. Tex dibagian ini sudah terhubung dengan database jadi bisa di setting di role nya admin menu setting. ',1,'2023-05-10 15:39:39');
 
+/*Table structure for table `mst_tahap_order` */
+
+DROP TABLE IF EXISTS `mst_tahap_order`;
+
+CREATE TABLE `mst_tahap_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `is_active` int(11) DEFAULT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+/*Data for the table `mst_tahap_order` */
+
+insert  into `mst_tahap_order`(`id`,`name`,`is_active`,`update_by`,`last_update`) values 
+(1,'Ordering',1,1,'2023-05-14 07:44:23'),
+(2,'Cooked',1,1,'2023-05-14 07:45:28'),
+(3,'Delivery',1,1,'2023-05-14 07:46:14'),
+(4,'Waiting for payment',1,1,'2023-05-14 07:46:45'),
+(5,'Accepted',1,1,'2023-05-14 07:47:03'),
+(6,'Close',1,1,'2023-05-14 07:47:09');
+
+/*Table structure for table `trx_order` */
+
+DROP TABLE IF EXISTS `trx_order`;
+
+CREATE TABLE `trx_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kode` varchar(255) DEFAULT NULL,
+  `id_product` int(11) DEFAULT NULL,
+  `jns_product` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `harga` int(11) DEFAULT NULL,
+  `order_methode` int(11) DEFAULT NULL,
+  `payment_methode` int(11) DEFAULT NULL,
+  `id_meja` int(11) DEFAULT NULL,
+  `id_tahap_order` int(11) DEFAULT NULL,
+  `tgl_order` datetime DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `trx_order` */
+
+insert  into `trx_order`(`id`,`kode`,`id_product`,`jns_product`,`qty`,`harga`,`order_methode`,`payment_methode`,`id_meja`,`id_tahap_order`,`tgl_order`,`id_user`) values 
+(1,'ORD.2023.05.0001',1,1,5,225000,1,NULL,NULL,1,'2023-05-14 02:31:59',6),
+(2,'ORD.2023.05.0002',1,1,5,225000,2,NULL,4,1,'2023-05-14 02:32:51',6),
+(3,'ORD.2023.05.0003',1,1,10,450000,3,2,NULL,1,'2023-05-14 02:33:31',6),
+(4,'ORD.2023.05.0004',1,1,60,2700000,2,NULL,8,1,'2023-05-14 03:10:01',6);
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -155,7 +270,7 @@ CREATE TABLE `users` (
   `update_by` int(11) DEFAULT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
@@ -164,7 +279,8 @@ insert  into `users`(`id`,`username`,`password`,`pass`,`role_id`,`name`,`email`,
 (2,'adm','$2y$10$XUvLMfGJPSkg5KzRGdc/t.f/Auw2xwQEPUburLlfInct9dDFCvm7q','1',1,'Admin','adm@gmail.com','default.jpg',1,1,'2023-04-15 19:37:52'),
 (3,'usr','$2y$10$Kb5Cm.gR4mqcFsaKzmmWDOM0FbxIDjqCmNm4PhaQqyzUug8wLM5Va','1',2,'Tes usr','usr@gmail.com','80763.png',1,1,'2023-04-20 13:03:03'),
 (4,'ts1','$2y$10$v2zW79n83Myb5b4FqnFwD.60mRvfMTkjs1NSd7BrW3dsJAjYAp0Xm','5',2,'fgfg','gfg','default.jpg',1,1,'2023-05-10 11:26:03'),
-(5,'ts2','$2y$10$3LpQZJs3nxD0HOaTfSX81..lY0COorTPmQryCy25eyI2uos0mnnTO','1',2,'tes regis','dgfsdgdf','default.jpg',1,1,'2023-05-10 11:26:07');
+(5,'ts2','$2y$10$3LpQZJs3nxD0HOaTfSX81..lY0COorTPmQryCy25eyI2uos0mnnTO','1',2,'tes regis','dgfsdgdf','default.jpg',1,1,'2023-05-10 11:26:07'),
+(6,'bdr','$2y$10$OFfH1ncrUZi8wa.YSHaVm.exU1SwUIzSWuvZC9yav5U5HtpBX/Jve','1',2,'bdr','bgd@gmail.com','default.jpg',1,1,'2023-05-13 11:54:11');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
