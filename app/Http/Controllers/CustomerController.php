@@ -93,4 +93,28 @@ class CustomerController extends Controller
         return view('Customer.pesanan')->with($data);
     }
 
+    function upload_img_bukti(Request $request)
+    {
+        if ($request->hasFile('add_image')) {
+            $fourRandomDigit = rand(10,99999);
+            $photo      = $request->file('add_image');
+            $fileName   = $fourRandomDigit.'.'.$photo->getClientOriginalExtension();
+
+            $path = public_path().'/img/bukti/';
+
+            File::makeDirectory($path, 0777, true, true);
+
+            $request->file('add_image')->move($path, $fileName);
+
+            $id         = $photo      = $request->get('id');
+            $data       = array(
+                'id_tahap_order'        => 4,
+                'bukti_pembayaran'      => $fileName
+            );
+            $update     = actionupdate('trx_order',$id,$data);
+
+            return response($fileName);
+        }
+    }
+
 }

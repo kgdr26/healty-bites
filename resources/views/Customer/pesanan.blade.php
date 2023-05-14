@@ -194,6 +194,7 @@
                                 <span class="required">Proof Of Payment</span>
                             </label>
                             <input type="file" class="form-control form-control-solid" name="add_image" id="foto"/>
+                            <input type="hidden" id="id_order">
                         </div>
 
                     </div>
@@ -288,6 +289,7 @@
         $('#id_product_order').val(id);
         $('#qty').val(qty);
         $('#harga').val(harga);
+        $('#id_order').val(id_order);
         $('#order_method_order').val(order_method).trigger("change");
         $('#payment_method_order').val(payment_method).trigger("change");
 
@@ -341,6 +343,51 @@
 
     });
   
+</script>
+
+<script>
+    var btnUpload       = $("#foto");
+    btnUpload.on("change", function(e){
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        // console.log(ext)
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Format image failed!'
+            })
+        } else {
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            var photo        = e.target.files[0];
+            var id           = $('#id_order').val();
+            var formData     = new FormData();
+            formData.append('add_image', photo);
+            formData.append('id', id);
+            // console.log(formData);
+            $.ajax({
+                url: "{{route('upload_img_bukti')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    // console.log(res);
+                    // $('#foto_name').val(res);
+                    $('.preloader').hide();
+                    Swal.fire({
+                        position:'center',
+                        title: 'Success!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((data) => {
+                        location.reload();
+                    })
+                }
+            })
+
+        }
+    });
 </script>
 
 <script>

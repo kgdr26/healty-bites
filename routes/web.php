@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Action Transaksion
     Route::get('admpesanan',['as'=> 'admpesanan','uses'=>'TransaksionController@admpesanan']); 
+    Route::post('approve_order',['as'=> 'approve_order','uses'=>'TransaksionController@approve_order']);
+    
 
     // Setting Landing Pag
     Route::get('settlandinghome',['as'=> 'settlandinghome','uses'=>'SettLandingController@settlandinghome']);
@@ -74,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cusprod',['as'=> 'cusprod','uses'=>'CustomerController@cusprod']);
     Route::post('createorder',['as'=> 'createorder','uses'=>'CustomerController@createorder']);
     Route::get('cuspesanan',['as'=> 'cuspesanan','uses'=>'CustomerController@cuspesanan']);
+    Route::post('upload_img_bukti',['as'=> 'upload_img_bukti','uses'=>'CustomerController@upload_img_bukti']);
+    
     
     
 });

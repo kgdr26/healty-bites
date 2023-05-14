@@ -101,7 +101,7 @@ function viewdataprod($id){
 
     $description= $data->description;
     $price      = 'Rp '. number_format($data->price, 0, ',', '.');
-    $foto       = 'img/product/51073.png';
+    $foto       = 'img/product/'.$data->img;
     $image      = '<div class="position-relative"><img src="'.$foto.'" class="w-100" alt=""><div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div></div>';
     
     $total_serving      = 0;
@@ -256,13 +256,13 @@ function viewdataprod($id){
 }
 
 function listpesanan($id_user){
-    $arr   = DB::select("SELECT a.kode, a.harga, a.id_product, a.id AS id_order, a.qty, a.order_methode, a.payment_methode, a.id_meja, b.name AS name_tahap, c.name AS name_product FROM trx_order a LEFT JOIN mst_tahap_order b ON a.id_tahap_order=b.id LEFT JOIN mst_product c ON a.id_product=c.id WHERE a.id_user='$id_user'");
+    $arr   = DB::select("SELECT a.kode, a.harga, a.id_product, a.id AS id_order, a.qty, a.order_methode, a.payment_methode, a.id_meja, a.id_tahap_order, a.bukti_pembayaran, b.name AS name_tahap, c.name AS name_product FROM trx_order a LEFT JOIN mst_tahap_order b ON a.id_tahap_order=b.id LEFT JOIN mst_product c ON a.id_product=c.id WHERE a.id_user='$id_user'");
 
     return $arr;
 }
 
 function listpesananall(){
-    $arr   = DB::select("SELECT a.kode, a.harga, a.id_product, a.id AS id_order, a.qty, a.order_methode, a.payment_methode, a.id_meja, b.name AS name_tahap, c.name AS name_product, d.name AS name_cus FROM trx_order a LEFT JOIN mst_tahap_order b ON a.id_tahap_order=b.id LEFT JOIN mst_product c ON a.id_product=c.id LEFT JOIN users d ON a.id_user=d.id");
+    $arr   = DB::select("SELECT a.kode, a.harga, a.id_product, a.id AS id_order, a.qty, a.order_methode, a.payment_methode, a.id_meja, a.id_tahap_order, a.bukti_pembayaran, b.name AS name_tahap, c.name AS name_product, d.name AS name_cus FROM trx_order a LEFT JOIN mst_tahap_order b ON a.id_tahap_order=b.id LEFT JOIN mst_product c ON a.id_product=c.id LEFT JOIN users d ON a.id_user=d.id");
 
     return $arr;
 }

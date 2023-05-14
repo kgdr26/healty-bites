@@ -91,7 +91,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-info me-3" data-name="show_data" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}}">
+                                        <button type="button" class="btn btn-info me-3" data-name="show_data" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}},{{$val->id_tahap_order}},{{$val->bukti_pembayaran}}">
                                             Show Orders
                                         </button>
                                     </div>
@@ -190,10 +190,8 @@
                         </div>
 
                         <div class="col-md-12 fv-row fv-plugins-icon-container" data-name="bukti_pembayaran">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">Proof Of Payment</span>
-                            </label>
-                            <input type="file" class="form-control form-control-solid" name="add_image" id="foto" disabled/>
+                            <input type="hidden" id="bukti">
+                            <button class="btn btn btn-success w-100" data-name="show_bukti">Payment</button>
                         </div>
 
                     </div>
@@ -211,6 +209,7 @@
 
                     <div class="col-md-12 fv-row fv-plugins-icon-container mb-8">
                         <input type="hidden" id="id_order_approve">
+                        <input type="hidden" id="tahap_order">
                         <button class="btn btn btn-success w-100" data-name="approve_order">Approve</button>
                     </div>
 
@@ -278,6 +277,47 @@
     <!--end::Modal dialog-->
 </div>
 
+<div class="modal fade" id="show_bukti_pembayaran" tabindex="-1" aria-modal="true" role="dialog">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header justify-content-end border-0 pb-0">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor"></rect>
+                        </svg>
+
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body pt-0 pb-15 px-5 px-xl-20">
+                <div class="row">
+                    <div class="col-6 mb-8" id="image_bukti">
+
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
 <script>
     $(document).on("click", "[data-name='show_data']", function (e) {
         $('.preloader').show();
@@ -289,6 +329,8 @@
         var order_method    = $(this).attr("data-item").split(",")[5];
         var payment_method  = $(this).attr("data-item").split(",")[6];
         var id_meja     = $(this).attr("data-item").split(",")[7];
+        var tahap_order = $(this).attr("data-item").split(",")[8];
+        var img_bukti   = $(this).attr("data-item").split(",")[9];
         $('[data-name="name_view_data_order"]').text(name);
         $('#id_product_order').val(id);
         $('#qty').val(qty);
@@ -296,6 +338,8 @@
         $('#order_method_order').val(order_method).trigger("change");
         $('#payment_method_order').val(payment_method).trigger("change");
         $('#id_order_approve').val(id_order);
+        $('#tahap_order').val(tahap_order);
+        $('#bukti').val(img_bukti);
 
         if(order_method === '2'){
             $('[data-name="show_payment_methode"]').css('display', 'none');
@@ -350,6 +394,52 @@
 
     });
   
+</script>
+
+<script>
+    $(document).on("click", "[data-name='approve_order']", function (e) {
+        var id_order        = $('#id_order_approve').val();
+        var tahap_order     = $('#tahap_order').val();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('approve_order') }}",
+            data: {id_order:id_order,tahap_order:tahap_order},
+            cache: false,
+            success: function(data) {
+                // console.log(data);
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },            
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        });
+
+    });
+
+    $(document).on("click", "[data-name='show_bukti']", function (e) {
+        var img     = $('#bukti').val();
+        var bkt     = '<div class="position-relative"><img src="img/bukti/'+img+'" class="w-100" alt=""><div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div></div>';
+        $('#image_bukti').html(bkt);
+        $('#show_bukti_pembayaran').modal('show');
+    });
 </script>
 
 <script>
