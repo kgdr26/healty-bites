@@ -242,16 +242,17 @@ CREATE TABLE `trx_order` (
   `id_tahap_order` int(11) DEFAULT NULL,
   `tgl_order` datetime DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
+  `bukti_pembayaran` varchar(255) DEFAULT NULL,
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `trx_order` */
 
-insert  into `trx_order`(`id`,`kode`,`id_product`,`jns_product`,`qty`,`harga`,`order_methode`,`payment_methode`,`id_meja`,`id_tahap_order`,`tgl_order`,`id_user`) values 
-(1,'ORD.2023.05.0001',1,1,5,225000,1,NULL,NULL,1,'2023-05-14 02:31:59',6),
-(2,'ORD.2023.05.0002',1,1,5,225000,2,NULL,4,1,'2023-05-14 02:32:51',6),
-(3,'ORD.2023.05.0003',1,1,10,450000,3,2,NULL,1,'2023-05-14 02:33:31',6),
-(4,'ORD.2023.05.0004',1,1,60,2700000,2,NULL,8,1,'2023-05-14 03:10:01',6);
+insert  into `trx_order`(`id`,`kode`,`id_product`,`jns_product`,`qty`,`harga`,`order_methode`,`payment_methode`,`id_meja`,`id_tahap_order`,`tgl_order`,`id_user`,`bukti_pembayaran`) values 
+(0,'ORD.2023.05.0001',1,1,5,225000,1,NULL,NULL,2,'2023-05-14 02:31:59',6,NULL),
+(2,'ORD.2023.05.0002',1,1,5,225000,2,NULL,4,1,'2023-05-14 02:32:51',6,NULL),
+(3,'ORD.2023.05.0003',1,1,10,450000,3,2,NULL,2,'2023-05-14 02:33:31',6,'22653.png'),
+(4,'ORD.2023.05.0004',1,1,60,2700000,2,NULL,8,1,'2023-05-14 03:10:01',6,NULL);
 
 /*Table structure for table `users` */
 
