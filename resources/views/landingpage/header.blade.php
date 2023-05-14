@@ -83,10 +83,8 @@
 						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tentang Kami</a>
 						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
 							
-							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>List 1</a> </li>
-							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>List 1</a> </li>
-							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>List 1</a> </li>
-							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>List 1</a> </li>
+							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>Loaction</a></li>
+							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>Artikel</a></li>
 
 						</ul>
 					</li>

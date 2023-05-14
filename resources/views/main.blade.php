@@ -82,6 +82,13 @@
             });
         </script>
         <!--end::Theme mode setup on page load-->
+
+        {{-- Convert To ANgka --}}
+        <script>
+            $.fn.convertToAngka = function() {
+                return parseInt($(this).text().replace(/[^0-9]/g, ''));
+            };
+        </script>
     </head>
     <!--end::Head-->
     <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled aside-fixed aside-default-enabled">

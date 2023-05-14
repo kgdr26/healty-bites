@@ -177,6 +177,14 @@
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label class="form-label fw-bold text-dark fs-6">Username</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" data-name="username" autocomplete="off">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Input group--> 
                 
                                 <!--begin::Input group-->
                                 <div class="mb-10 fv-row fv-plugins-icon-container" data-kt-password-meter="true">

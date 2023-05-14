@@ -21,6 +21,19 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Info-->
+
+        <!--begin::Card toolbar-->
+        <div class="card-toolbar d-flex flex-row-fluid justify-content-end gap-5">
+            <!--begin::Add product-->
+            <a href="#" class="btn btn-primary" data-name="add_data">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                </svg>
+                Add Category
+            </a>
+            <!--end::Add product-->
+        </div>
+        <!--end::Card toolbar-->
     </div>
 </div>
 
@@ -28,100 +41,34 @@
 <div class="post fs-6 d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
     <div class="container-xxl min-w-100">
-        <!--begin::Products-->
-        <div class="card card-flush">
-            <!--begin::Card header-->
-            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                <!--begin::Card title-->
-                <div class="card-title">
-                    <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                        <span class="svg-icon svg-icon-1 position-absolute ms-4"><svg width="24"
-                                height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                    height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                    fill="currentColor" />
-                                <path
-                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                    fill="currentColor" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon--> 
-                        <input type="text" data-search-table="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search" />
+        <div class="row">
+
+            @foreach ($arr as $key => $val)
+                <div class="col-3">
+                    <div class="card  card-xl-stretch mb-xl-8">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="position-relative">
+                                        <img src="{{asset('img/category').'/'.$val->foto}}" class="w-100" alt="">
+                                        <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+                                    </div>                                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center w-100 mb-8">
+                                <span class="fw-bolder text-dark fs-2">{{strtoupper($val->name)}}</span>
+                            </div>
+                            <div class="d-flex justify-content-between w-100">
+                                <span class="fw-bolder text-muted fs-2">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</span>
+                                <a href="" class="btn btn btn-info me-3">Edit</a>
+                            </div>
+                        </div>
                     </div>
-                    <!--end::Search-->
                 </div>
-                <!--end::Card title-->
-
-                <!--begin::Card toolbar-->
-                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                    <!--begin::Add product-->
-                    <a href="#" class="btn btn-primary" data-name="add_data">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                        </svg>
-                        Add Role
-                    </a>
-                    <!--end::Add product-->
-                </div>
-                <!--end::Card toolbar-->
-            </div>
-            <!--end::Card header-->
-
-            <!--begin::Card body-->
-            <div class="card-body pt-0">
-
-                <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="main_table">
-                    <!--begin::Table head-->
-                    <thead>
-                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th>NO</th>
-                            <th>CATEGORY NAME</th>
-                            <th>STATUS</th>
-                            <th class="text-center">ACTION</th>
-                        </tr>
-                    </thead>
-                    <!--end::Table head-->
-
-                    <!--begin::Table body-->
-                    <tbody class="fw-semibold text-gray-600">
-                        @php
-                            $no = 1;
-                        @endphp
-                        @foreach ($arr as $key => $val)
-                            <tr>
-                                <td>{{$no++}}</td>
-                                <td>{{strtoupper($val->name)}}</td>
-                                <td>
-                                    @if ($val->is_active == 1)
-                                        <div class="badge badge-light-success">Active</div>
-                                    @else
-                                        <div class="badge badge-light-danger">Inactive</div>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-info me-3" data-name="edit_data" data-item="{{$val->id}},{{$val->name}}">
-                                            Edit
-                                        </button>
-                                        <button type="button" data-name="save_data" class="btn btn-danger">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <!--end::Table body-->
-                </table>
-                <!--end::Table-->
-            </div>
-            <!--end::Card body-->
+            @endforeach
         </div>
-        <!--end::Products-->
     </div>
     <!--end::Container-->
 </div>
@@ -153,7 +100,21 @@
                     <input type="text" class="form-control form-control-solid" placeholder="Name" data-name="name"/>
                 </div>
 
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">PRICE</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Price" name="price" data-name="price" id="price"/>
+                </div>
 
+                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">FOTO</span>
+                    </label>
+                    <input type="file" class="form-control form-control-solid" name="add_image" id="foto"/>
+                </div>
+
+                <input type="hidden" id="foto_name" name="foto_name" data-name="img">
             </div>
             <div class="modal-footer flex-center">
                 <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
@@ -208,20 +169,64 @@
 
 {{-- Action Add --}}
 <script>
+    $(function() {
+        $('#price').maskMoney({
+            prefix: 'Rp ',
+            thousands: '.',
+            decimal: ',',
+            precision: 0
+        });
+    });
+
     $(document).on("click", "[data-name='add_data']", function (e) {
         $('[data-name="name"]').val('');
+        $('[data-name="price"]').val('');
+        $('[data-name="img"]').val('');
         $('#add_data').modal('show');
+    });
+
+    var btnUpload       = $("#foto");
+    btnUpload.on("change", function(e){
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        // console.log(ext)
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Format image failed!'
+            })
+        } else {
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            var photo        = e.target.files[0];
+            var formData    = new FormData();
+            formData.append('add_image', photo);
+            // console.log(formData);
+            $.ajax({
+                url: "{{route('upload_img_cat')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    // console.log(res);
+                    $('#foto_name').val(res);
+                }
+            })
+
+        }
     });
 
     $(document).on("click", "[data-name='save_data']", function (e) {
 
         $('.preloader').show();
-        var name = $('[data-name="name"]').val();
+        var name    = $('[data-name="name"]').val();
+        var price   = $('[data-name="price"]').val();
+        var foto    = $('[data-name="img"]').val();
 
         $.ajax({
             type: "POST",
             url: "{{ route('addcategory') }}",
-            data: {name:name},
+            data: {name:name,price:price,foto:foto},
             cache: false,
             success: function(data) {
                 $('.preloader').hide();
@@ -286,49 +291,5 @@
     });
 </script>
 
-<script>
-    "use strict";
-    var MainJSTable = function () {
-        // Shared variables
-        var table;
-        var datatable;
-
-        // Private functions
-        var initDatatable = function () {
-            datatable = $(table).DataTable({
-                "info": false,
-                'order': [],
-                'pageLength': 10,
-            });
-            datatable.on('draw', function () {
-                handleDeleteRows();
-            });
-        }
-
-        var handleSearchDatatable = () => {
-            const filterSearch = document.querySelector('[data-search-table="search"]');
-            filterSearch.addEventListener('keyup', function (e) {
-                datatable.search(e.target.value).draw();
-            });
-        }
-
-        return {
-            init: function () {
-                table = document.querySelector('#main_table');
-
-                if (!table) {
-                    return;
-                }
-
-                initDatatable();
-                handleSearchDatatable();
-            }
-        };
-    }();
-
-    KTUtil.onDOMContentLoaded(function () {
-        MainJSTable.init();
-    });
-</script>
 
 @stop

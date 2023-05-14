@@ -156,3 +156,25 @@
 .table.between tr td{
     padding: 0.3rem !important;
 }
+
+.card-meja{
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background: #8B8B8B;
+    color: #ffffff;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.card-meja[data-status=st0]{
+    background: #47BE7D !important;
+}
+
+.card-meja[data-status=st1]{
+    background: #D9214E !important;
+}
+
+.klick .card-meja{
+    background: #5014d0 !important;
+}
