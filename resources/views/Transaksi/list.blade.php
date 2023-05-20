@@ -87,7 +87,11 @@
                                 <td>{{strtoupper($val->name_product)}}</td>
                                 <td>{{ 'Rp '. number_format($val->harga, 0, ',', '.') }}</td>
                                 <td>
-                                    <div class="badge badge-light-success">{{$val->name_tahap}}</div>
+                                    @if ($val->id_tahap_order == 8)
+                                        <div class="badge badge-light-danger">{{$val->name_tahap}}</div>
+                                    @else
+                                        <div class="badge badge-light-success">{{$val->name_tahap}}</div>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -210,7 +214,12 @@
                     <div class="col-md-12 fv-row fv-plugins-icon-container mb-8">
                         <input type="hidden" id="id_order_approve">
                         <input type="hidden" id="tahap_order">
-                        <button class="btn btn btn-success w-100" data-name="approve_order">Approve</button>
+                        
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn btn-success me-3" id="text_approve" data-name="approve_order">-</button>
+                            <button class="btn btn btn-danger me-3" id="text_cancel" data-name="cancel_order">Cancel</button>
+                        </div>
+
                     </div>
 
                     <div class="col-12">
@@ -344,16 +353,45 @@
         if(order_method === '2'){
             $('[data-name="show_payment_methode"]').css('display', 'none');
             $('[data-name="show_select_meja"]').css('display', 'block');
-            $('[data-name="bukti_pembayaran"]').css('display', 'none');
             $('[data-name="st'+id_meja+'"]').addClass('klick');
         }else if(order_method === '3'){
             $('[data-name="show_payment_methode"]').css('display', 'block');
             $('[data-name="show_select_meja"]').css('display', 'none');
-            $('[data-name="bukti_pembayaran"]').css('display', 'block');
         }else{
             $('[data-name="show_payment_methode"]').css('display', 'none');
             $('[data-name="show_select_meja"]').css('display', 'none');
+        }
+
+        if(tahap_order == 7){
+            $('[data-name="bukti_pembayaran"]').css('display', 'block');
+        }else{
             $('[data-name="bukti_pembayaran"]').css('display', 'none');
+        }
+
+        if(tahap_order == 1){
+            $('#text_approve').text('Cooked');
+            $('#text_approve').attr('disabled', false);
+            $('#text_cancel').attr('disabled', false);
+        }else if(tahap_order == 2){
+            $('#text_approve').text('Delivery');
+            $('#text_approve').attr('disabled', false);
+            $('#text_cancel').attr('disabled', true);
+        }else if(tahap_order == 7){
+            $('#text_approve').text('Accepted');
+            $('#text_approve').attr('disabled', false);
+            $('#text_cancel').attr('disabled', true);
+        }else if(tahap_order == 4){
+            $('#text_approve').text('Waiting for payment');
+            $('#text_approve').attr('disabled', true);
+            $('#text_cancel').attr('disabled', true);
+        }else if(tahap_order == 6){
+            $('#text_approve').text('Order Received');
+            $('#text_approve').attr('disabled', true);
+            $('#text_cancel').attr('disabled', true);
+        }else{
+            $('#text_approve').text('Accepted');
+            $('#text_approve').attr('disabled', true);
+            $('#text_cancel').attr('disabled', true);
         }
 
         $.ajax({
@@ -433,6 +471,44 @@
         });
 
     });
+
+    $(document).on("click", "[data-name='cancel_order']", function (e) {
+        var id_order        = $('#id_order_approve').val();
+        var tahap_order     = $('#tahap_order').val();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('cancel_order') }}",
+            data: {id_order:id_order,tahap_order:tahap_order},
+            cache: false,
+            success: function(data) {
+                // console.log(data);
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },            
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        });
+
+    });
+    
 
     $(document).on("click", "[data-name='show_bukti']", function (e) {
         var img     = $('#bukti').val();

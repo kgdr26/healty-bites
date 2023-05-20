@@ -38,18 +38,30 @@ class TransaksionController extends Controller
         $id_order         = $request['id_order'];
         $tahap_order      = $request['tahap_order'];
 
-        if($tahap_order == 1){
+        if($tahap_order == 7){
+            $thp = 1;
+        }else if($tahap_order == 1){
             $thp = 2;
-        }else if($tahap_order == 4){
-            $thp = 2;
-        }else if($tahap_order == 2){
-            $thp = 6;
+        }else if($tahap_order == 3){
+            $thp = 3;
         }else{
-            $thp = 5;
+            $thp = 3;
         }
 
         $data       = array(
             'id_tahap_order'    => $thp,
+        );
+        $update     = actionupdate('trx_order',$id_order,$data);
+
+        return response('success');
+    }
+  
+    function cancel_order(Request $request)
+    {
+        $id_order         = $request['id_order'];
+
+        $data       = array(
+            'id_tahap_order'    => 8,
         );
         $update     = actionupdate('trx_order',$id_order,$data);
 

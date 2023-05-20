@@ -267,5 +267,27 @@ function listpesananall(){
     return $arr;
 }
 
+function addwishlit($id,$id_usr){
+    $arr    = collect(\DB::select("SELECT * FROM mst_product WHERE id='$id'"))->first();
+    $dw     = json_decode($arr->wishlist);
+    $ct_dw  = count($dw);
+    $dat    = '';
+    if($ct_dw == 0){
+        $dat    .= '["'.$id_usr.'"]';
+    }else{
+        $dat    .= '[';
+        foreach($dw as $Key => $val){
+            $dat    .= '"'.$val.'",';
+        }
+        $dat    .= '"'.$id_usr.'"]';
+    }
+
+    DB::table('mst_product')->where('id', $id)->update(['wishlist' => $dat]);
+    return 'success';
+
+    // $dat['show']    = $dat;
+
+    // return $dat;
+}
 
 ?>

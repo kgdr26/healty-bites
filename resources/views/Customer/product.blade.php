@@ -86,6 +86,14 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between w-100">
+                                        @php
+                                            $wsh    = json_decode($val->wishlist);
+                                        @endphp
+                                        @if (in_array($idn_user->id, $wsh))
+                                            <a href="#" class="btn btn-danger me-3" data-name="clikc_unlike" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
+                                        @else
+                                            <a href="#" class="btn btn-outline btn-outline-danger btn-active-light-danger me-3" data-name="clikc_like" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
+                                        @endif
                                         <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
                                         <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$val->id}},{{ucwords($val->name)}}">Order</a>                                                            
                                     </div>
@@ -137,7 +145,8 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="d-flex justify-content-between w-100">
-                                                <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
+                                                <a href="#" class="btn btn-outline btn-outline-danger btn-active-light-danger me-3" data-name="clikc_like" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
+                                                <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>             
                                                 <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$val->id}},{{ucwords($val->name)}}">Order</a>                                                                         
                                             </div>
                                         </div>
@@ -1117,6 +1126,46 @@
         });
 
     });   
+</script>
+
+<script>
+    $(document).on("click", "[data-name='clikc_like']", function (e) {
+        $('.preloader').show();
+        var id     = $(this).attr("data-item").split(",")[0];
+        var name   = $(this).attr("data-item").split(",")[1];
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('addwishlist') }}",
+            data: {id:id},
+            cache: false,
+            success: function(data) {
+                // console.log(data)
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success Add Wishlist '+ name,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },            
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        });
+    });
 </script>
 
 @stop

@@ -87,13 +87,30 @@
                                 <td>{{strtoupper($val->name_product)}}</td>
                                 <td>{{ 'Rp '. number_format($val->harga, 0, ',', '.') }}</td>
                                 <td>
-                                    <div class="badge badge-light-success">{{$val->name_tahap}}</div>
+                                    @if ($val->id_tahap_order == 8)
+                                        <div class="badge badge-light-danger">{{$val->name_tahap}}</div>
+                                    @else
+                                        <div class="badge badge-light-success">{{$val->name_tahap}}</div>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-info me-3" data-name="show_data" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}}">
+                                        <button type="button" class="btn btn-info me-3" data-name="show_data" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}},{{$val->bukti_pembayaran}},{{$val->id_tahap_order}}">
                                             Show Orders
                                         </button>
+                                        @if ($val->id_tahap_order == 3)
+                                            <button type="button" class="btn btn-success me-3" data-name="confirm_order" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}},{{$val->bukti_pembayaran}},{{$val->id_tahap_order}}">
+                                                Confirmed Order
+                                            </button>
+                                        @elseif ($val->id_tahap_order == 6)
+                                            <button type="button" class="btn btn-success me-3" data-name="" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}},{{$val->bukti_pembayaran}},{{$val->id_tahap_order}}" disabled>
+                                                Order Received
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn btn-secondary me-3" data-name="not_confirm_order" data-item="{{$val->id_product}},{{ucwords($val->name_product)}},{{$val->id_order}},{{$val->qty}},{{'Rp '. number_format($val->harga, 0, ',', '.')}},{{$val->order_methode}},{{$val->payment_methode}},{{$val->id_meja}},{{$val->bukti_pembayaran}},{{$val->id_tahap_order}}">
+                                                Confirmed Order
+                                            </button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr> 
@@ -189,12 +206,20 @@
                             </select>
                         </div>
 
-                        <div class="col-md-12 fv-row fv-plugins-icon-container" id="bukti_pembayaran" style="display:block;">
+                        <div class="col-md-12 fv-row fv-plugins-icon-container" id="bukti_pembayaran" style="display:none;">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">Proof Of Payment</span>
                             </label>
                             <input type="file" class="form-control form-control-solid" name="add_image" id="foto"/>
                             <input type="hidden" id="id_order">
+                        </div>
+
+                        <div class="col-md-12 fv-row fv-plugins-icon-container" id="show_bukti_pembayaran" style="display:none;">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Show Proof Of Payment</span>
+                            </label>
+                            <input type="hidden" name="" id="bukti">
+                            <button class="btn btn btn-success w-100" data-name="show_bukti">Payment</button>
                         </div>
 
                     </div>
@@ -274,6 +299,47 @@
     <!--end::Modal dialog-->
 </div>
 
+<div class="modal fade" id="show_bukti_modal" tabindex="-1" aria-modal="true" role="dialog">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header justify-content-end border-0 pb-0">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor"></rect>
+                        </svg>
+
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body pt-0 pb-15 px-5 px-xl-20">
+                <div class="row">
+                    <div class="col-6 mb-8" id="image_bukti">
+
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
 <script>
     $(document).on("click", "[data-name='show_data']", function (e) {
         $('.preloader').show();
@@ -285,6 +351,9 @@
         var order_method    = $(this).attr("data-item").split(",")[5];
         var payment_method  = $(this).attr("data-item").split(",")[6];
         var id_meja     = $(this).attr("data-item").split(",")[7];
+        var img_bukti   = $(this).attr("data-item").split(",")[8];
+        var tahap_order = $(this).attr("data-item").split(",")[9];
+        $('#bukti').val(img_bukti);
         $('[data-name="name_view_data_order"]').text(name);
         $('#id_product_order').val(id);
         $('#qty').val(qty);
@@ -296,13 +365,23 @@
         if(order_method === '2'){
             $('[data-name="show_payment_methode"]').css('display', 'none');
             $('[data-name="show_select_meja"]').css('display', 'block');
+            $('#bukti_pembayaran').css('display', 'none');
             $('[data-name="st'+id_meja+'"]').addClass('klick');
         }else if(order_method === '3'){
             $('[data-name="show_payment_methode"]').css('display', 'block');
+            $('#bukti_pembayaran').css('display', 'block');
             $('[data-name="show_select_meja"]').css('display', 'none');
         }else{
             $('[data-name="show_payment_methode"]').css('display', 'none');
             $('[data-name="show_select_meja"]').css('display', 'none');
+            $('#bukti_pembayaran').css('display', 'none');
+        }
+
+        if(tahap_order == 7){
+            $('#show_bukti_pembayaran').css('display', 'block');
+            $('#bukti_pembayaran').css('display', 'none');
+        }else{
+            $('#show_bukti_pembayaran').css('display', 'none');
         }
 
         $.ajax({
@@ -433,6 +512,55 @@
     KTUtil.onDOMContentLoaded(function () {
         MainJSTable.init();
     });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='show_bukti']", function (e) {
+        var img     = $('#bukti').val();
+        var bkt     = '<div class="position-relative"><img src="img/bukti/'+img+'" class="w-100" alt=""><div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div></div>';
+        $('#image_bukti').html(bkt);
+        $('#show_bukti_modal').modal('show');
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='confirm_order']", function (e) {
+        $('.preloader').show();
+        var id_order    = $(this).attr("data-item").split(",")[2];
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('conirm_cus_order') }}",
+            data: {id_order:id_order},
+            cache: false,
+            success: function(data) {
+                // console.log(data);
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },            
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        });
+    });
+    
 </script>
 
 @stop

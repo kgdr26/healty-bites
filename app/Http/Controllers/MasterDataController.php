@@ -147,10 +147,11 @@ class MasterDataController extends Controller
             $dressings      = json_encode($request['dressings']);
         }
 
+        $wishlist   = "[]";
         $is_active  = 1;
         $update_by  = auth::user()->id;
 
-        DB::insert("INSERT INTO mst_product (id_category,name,price,description,img,bread,greens,toppings,dressings,is_active,update_by) values (?,?,?,?,?,?,?,?,?,?,?)", [$id_category,$name,$price,$description,$img,$bread,$greens,$toppings,$dressings,$is_active,$update_by]);
+        DB::insert("INSERT INTO mst_product (id_category,name,price,description,img,bread,greens,toppings,dressings,wishlist,is_active,update_by) values (?,?,?,?,?,?,?,?,?,?,?,?)", [$id_category,$name,$price,$description,$img,$bread,$greens,$toppings,$dressings,$wishlist,$is_active,$update_by]);
 
         return response('success');
     }
