@@ -6,7 +6,7 @@
         <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-2">
             <!--begin::Title-->
             <h1 class="text-dark fw-bold my-1 fs-2">
-                Product <small class="text-muted fs-6 fw-normal ms-1"></small>
+                Wishlist <small class="text-muted fs-6 fw-normal ms-1"></small>
             </h1>
             <!--end::Title-->
 
@@ -15,7 +15,7 @@
                 <li class="breadcrumb-item text-muted">
                     <a href="" class="text-muted text-hover-primary">Product</a>
                 </li>
-                <li class="breadcrumb-item text-muted">List Product </li>
+                <li class="breadcrumb-item text-muted">Wishlist </li>
             </ul>
             <!--end::Breadcrumb-->
         </div>
@@ -28,492 +28,57 @@
     <!--begin::Container-->
     <div class="container-xxl min-w-100">
 
-        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-10" id="myTab">
-            <li class="nav-item">
-                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#tabs_content_all">ALL</a>
-            </li>
-
-            @foreach ($arr as $key => $val)
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#tabs_content_{{$val->id}}">{{strtoupper($val->name)}}</a>
-                </li>
-            @endforeach
-
-            <li class="nav-item">
-                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#tabs_content_own">CREATE YOUR OWN</a>
-            </li>
-
-        </ul>
-        <!--begin::Tab content-->
-        <div class="tab-content">
-
-            <div class="tab-pane fade  show active" id="tabs_content_all" role="tab-panel">
-                <div class="row">
-                    @foreach ($product as $key => $val)
-                        <div class="col-3">
-                            <div class="card  card-xl-stretch mb-xl-8">
-                                <div class="card-header align-items-center border-0 mt-5">
-                                    <span class="fw-bolder text-dark fs-2">{{ucwords($val->name)}}</span>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="position-relative">
-                                                <img src="{{asset('img/product').'/'.$val->img}}" class="w-100" alt="">
-                                                <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
-                                            </div>                                        
-                                        </div>
-                                        <div class="col-12">
-                                            
-                                            <div class="row mb-3">
-                                                <label class="col-lg-5 fw-semibold text-muted">Price</label>
-                                                <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                                <div class="col-lg-6 text-end">                    
-                                                    <span class="fw-bold fs-6 text-gray-800">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</span>                
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <label class="col-lg-5 fw-semibold text-muted">Description</label>
-                                                <label class="col-lg-7 fw-semibold text-muted">:</label>
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-10">                    
-                                                    <span class="fw-bold fs-6 text-gray-800">{{$val->description}}</span>                
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-between w-100">
-                                        @php
-                                            $wsh    = json_decode($val->wishlist);
-                                        @endphp
-                                        @if (in_array($idn_user->id, $wsh))
-                                            <a href="#" class="btn btn-danger me-3" data-name="clikc_unlike" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
-                                        @else
-                                            <a href="#" class="btn btn-outline btn-outline-danger btn-active-light-danger me-3" data-name="clikc_like" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
-                                        @endif
-                                        <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
-                                        <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$val->id}},{{ucwords($val->name)}}">Order</a>                                                            
-                                    </div>
-                                </div>
+        <div class="row">
+            @foreach ($product as $key => $val)
+                @php
+                    $wsh    = json_decode($val->wishlist);
+                @endphp
+                @if (in_array($idn_user->id, $wsh))
+                    <div class="col-3">
+                        <div class="card  card-xl-stretch mb-xl-8">
+                            <div class="card-header align-items-center border-0 mt-5">
+                                <span class="fw-bolder text-dark fs-2">{{ucwords($val->name)}}</span>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            @foreach ($arr as $key => $val)
-                <div class="tab-pane fade" id="tabs_content_{{$val->id}}" role="tab-panel">
-                    <div class="row">
-                        @foreach ($product as $k => $v)
-                            @if ($v->id_category == $val->id)
-                                <div class="col-3">
-                                    <div class="card  card-xl-stretch mb-xl-8">
-                                        <div class="card-header align-items-center border-0 mt-5">
-                                            <span class="fw-bolder text-dark fs-2">{{ucwords($v->name)}}</span>
-                                        </div>
-                                        <div class="card-body pt-0">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="position-relative">
-                                                        <img src="{{asset('img/product').'/'.$v->img}}" class="w-100" alt="">
-                                                        <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
-                                                    </div>                                        
-                                                </div>
-                                                <div class="col-12">
-                                                    
-                                                    <div class="row mb-3">
-                                                        <label class="col-lg-5 fw-semibold text-muted">Price</label>
-                                                        <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                                        <div class="col-lg-6 text-end">                    
-                                                            <span class="fw-bold fs-6 text-gray-800">{{ 'Rp '. number_format($v->price, 0, ',', '.') }}</span>                
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mb-3">
-                                                        <label class="col-lg-5 fw-semibold text-muted">Description</label>
-                                                        <label class="col-lg-7 fw-semibold text-muted">:</label>
-                                                        <div class="col-lg-2"></div>
-                                                        <div class="col-lg-10">                    
-                                                            <span class="fw-bold fs-6 text-gray-800">{{$v->description}}</span>                
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="d-flex justify-content-between w-100">
-                                                @php
-                                                    $wsh    = json_decode($val->wishlist);
-                                                @endphp
-                                                @if (in_array($idn_user->id, $wsh))
-                                                    <a href="#" class="btn btn-danger me-3" data-name="clikc_unlike" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
-                                                @else
-                                                    <a href="#" class="btn btn-outline btn-outline-danger btn-active-light-danger me-3" data-name="clikc_like" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
-                                                @endif
-                                                <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
-                                                <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$val->id}},{{ucwords($val->name)}}">Order</a>                                                                        
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
-
-            <div class="tab-pane fade" id="tabs_content_own" role="tab-panel">
-                <div class="row">
-                    <div class="col-4">
-                        <div class="row">
-
-                            <div class="col-12">
-                                <div class="card  card-xxl-stretch mb-xl-3">
-                                    <!--begin::Header-->
-                                    <div class="card-header border-0 pt-5 pb-3">
-                                        <!--begin::Heading-->
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bolder text-gray-800 fs-2">Category</span>
-                                        </h3>
-                                        <!--end::Heading-->
-                                    </div>
-                                    <!--end::Header-->
-                                
-                                    <!--begin::Body-->
-                                    <div class="card-body mh-200px scroll-y">
-                                        <!--begin::Table-->
-                                        <div class="table-responsive">
-                                            <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
-                                                <tbody>
-                                                    @foreach ($arr as $key => $val)
-                                                        <tr>
-                                                            <td class="p-0">
-                                                                <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                    <input class="form-check-input cursor-pointer" type="radio" name="category_own" value="">
-                                                                </div>
-                                                            </td>
-                                                            <td class="p-0">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="symbol symbol-50px me-2">
-                                                                        <span class="symbol-label">
-                                                                            <img alt="" class="w-100" src="{{asset('img/category').'/'.$val->foto}}">
-                                                                        </span>
-                                                                    </div>
-                                    
-                                                                    <div class="ps-3">
-                                                                        <a href="#" class="text-gray-800 fw-bolder fs-5 text-hover-primary mb-1">{{strtoupper($val->name)}}</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="p-0">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</td>
-                                                        </tr>
-                                                    @endforeach
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Body-->
-
-                                    <div class="card-footer">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="card  card-xxl-stretch mb-xl-3">
-                                    <!--begin::Header-->
-                                    <div class="card-header border-0 pt-5 pb-3">
-                                        <!--begin::Heading-->
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bolder text-gray-800 fs-2">Bread</span>
-                                        </h3>
-                                        <!--end::Heading-->
-                                    </div>
-                                    <!--end::Header-->
-                                
-                                    <!--begin::Body-->
-                                    <div class="card-body mh-200px scroll-y">
-                                        <!--begin::Table-->
-                                        <div class="table-responsive">
-                                            <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
-                                                <tbody>
-                                
-                                                    @foreach ($bahan as $key => $val)
-                                                        @if ($val->type_bahan == 1)
-                                                            <tr>
-                                                                <td class="p-0">
-                                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                        <input class="form-check-input cursor-pointer" type="checkbox" name="bread_own" value="">
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="symbol symbol-50px me-2">
-                                                                            <span class="symbol-label">
-                                                                                <img alt="" class="w-100" src="{{asset('img/bahan').'/'.$val->foto}}">
-                                                                            </span>
-                                                                        </div>
-                                        
-                                                                        <div class="ps-3">
-                                                                            <a href="#" class="text-gray-800 fw-bolder fs-5 text-hover-primary mb-1">{{strtoupper($val->name)}}</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Body-->
-
-                                    <div class="card-footer">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="card  card-xxl-stretch mb-xl-3">
-                                    <!--begin::Header-->
-                                    <div class="card-header border-0 pt-5 pb-3">
-                                        <!--begin::Heading-->
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bolder text-gray-800 fs-2">Greens</span>
-                                        </h3>
-                                        <!--end::Heading-->
-                                    </div>
-                                    <!--end::Header-->
-                                
-                                    <!--begin::Body-->
-                                    <div class="card-body py-0">
-                                        <!--begin::Table-->
-                                        <div class="table-responsive">
-                                            <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
-                                                <tbody>
-                                
-                                                    @foreach ($bahan as $key => $val)
-                                                        @if ($val->type_bahan == 2)
-                                                            <tr>
-                                                                <td class="p-0">
-                                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                        <input class="form-check-input cursor-pointer" type="checkbox" name="bread_own" value="">
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="symbol symbol-50px me-2">
-                                                                            <span class="symbol-label">
-                                                                                <img alt="" class="w-100" src="{{asset('img/bahan').'/'.$val->foto}}">
-                                                                            </span>
-                                                                        </div>
-                                        
-                                                                        <div class="ps-3">
-                                                                            <a href="#" class="text-gray-800 fw-bolder fs-5 text-hover-primary mb-1">{{strtoupper($val->name)}}</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Body-->
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="card  card-xxl-stretch mb-xl-3">
-                                    <!--begin::Header-->
-                                    <div class="card-header border-0 pt-5 pb-3">
-                                        <!--begin::Heading-->
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bolder text-gray-800 fs-2">Toppings</span>
-                                        </h3>
-                                        <!--end::Heading-->
-                                    </div>
-                                    <!--end::Header-->
-                                
-                                    <!--begin::Body-->
-                                    <div class="card-body py-0">
-                                        <!--begin::Table-->
-                                        <div class="table-responsive">
-                                            <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
-                                                <tbody>
-                                
-                                                    @foreach ($bahan as $key => $val)
-                                                        @if ($val->type_bahan == 3)
-                                                            <tr>
-                                                                <td class="p-0">
-                                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                        <input class="form-check-input cursor-pointer" type="checkbox" name="bread_own" value="">
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="symbol symbol-50px me-2">
-                                                                            <span class="symbol-label">
-                                                                                <img alt="" class="w-100" src="{{asset('img/bahan').'/'.$val->foto}}">
-                                                                            </span>
-                                                                        </div>
-                                        
-                                                                        <div class="ps-3">
-                                                                            <a href="#" class="text-gray-800 fw-bolder fs-5 text-hover-primary mb-1">{{strtoupper($val->name)}}</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Body-->
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="card  card-xxl-stretch mb-xl-3">
-                                    <!--begin::Header-->
-                                    <div class="card-header border-0 pt-5 pb-3">
-                                        <!--begin::Heading-->
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bolder text-gray-800 fs-2">Dressings</span>
-                                        </h3>
-                                        <!--end::Heading-->
-                                    </div>
-                                    <!--end::Header-->
-                                
-                                    <!--begin::Body-->
-                                    <div class="card-body py-0">
-                                        <!--begin::Table-->
-                                        <div class="table-responsive">
-                                            <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
-                                                <tbody>
-                                
-                                                    @foreach ($bahan as $key => $val)
-                                                        @if ($val->type_bahan == 4)
-                                                            <tr>
-                                                                <td class="p-0">
-                                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                        <input class="form-check-input cursor-pointer" type="checkbox" name="bread_own" value="">
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="symbol symbol-50px me-2">
-                                                                            <span class="symbol-label">
-                                                                                <img alt="" class="w-100" src="{{asset('img/bahan').'/'.$val->foto}}">
-                                                                            </span>
-                                                                        </div>
-                                        
-                                                                        <div class="ps-3">
-                                                                            <a href="#" class="text-gray-800 fw-bolder fs-5 text-hover-primary mb-1">{{strtoupper($val->name)}}</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="p-0">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Body-->
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-8">
-                        <div class="card  card-xxl-stretch mb-xl-3">
-                            <!--begin::Header-->
-                            <div class="card-header border-0 pt-5 pb-3">
-                                <!--begin::Heading-->
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder text-gray-800 fs-2">Nutrition total</span>
-                                </h3>
-                                <!--end::Heading-->
-                            </div>
-                            <!--end::Header-->
-                        
-                            <!--begin::Body-->
-                            <div class="card-body">
+                            <div class="card-body pt-0">
                                 <div class="row">
-                                    <div class="row mb-3">
-                                        <label class="col-lg-3 fw-semibold text-muted">Serving</label>
-                                        <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                        <div class="col-lg-8 text-end">                    
-                                            <span class="fw-bold fs-6 text-gray-800" id="total_serving_own">- g</span>                
-                                        </div>
+                                    <div class="col-12">
+                                        <div class="position-relative">
+                                            <img src="{{asset('img/product').'/'.$val->img}}" class="w-100" alt="">
+                                            <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+                                        </div>                                        
                                     </div>
-                                    <div class="row mb-3">
-                                        <label class="col-lg-3 fw-semibold text-muted">Energy</label>
-                                        <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                        <div class="col-lg-8 text-end">                    
-                                            <span class="fw-bold fs-6 text-gray-800" id="total_energy_own">- kcals</span>                
+                                    <div class="col-12">
+                                        
+                                        <div class="row mb-3">
+                                            <label class="col-lg-5 fw-semibold text-muted">Price</label>
+                                            <label class="col-lg-1 fw-semibold text-muted">:</label>
+                                            <div class="col-lg-6 text-end">                    
+                                                <span class="fw-bold fs-6 text-gray-800">{{ 'Rp '. number_format($val->price, 0, ',', '.') }}</span>                
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-lg-3 fw-semibold text-muted">Protein</label>
-                                        <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                        <div class="col-lg-8 text-end">                    
-                                            <span class="fw-bold fs-6 text-gray-800" id="total_protein_own">- g</span>                
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-lg-3 fw-semibold text-muted">Total Fat</label>
-                                        <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                        <div class="col-lg-8 text-end">                    
-                                            <span class="fw-bold fs-6 text-gray-800" id="total_fat_own">- g</span>                
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-lg-3 fw-semibold text-muted">Carbohydrate</label>
-                                        <label class="col-lg-1 fw-semibold text-muted">:</label>
-                                        <div class="col-lg-8 text-end">                    
-                                            <span class="fw-bold fs-6 text-gray-800" id="total_carbohydrate_own">- g</span>                
+
+                                        <div class="row mb-3">
+                                            <label class="col-lg-5 fw-semibold text-muted">Description</label>
+                                            <label class="col-lg-7 fw-semibold text-muted">:</label>
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-10">                    
+                                                <span class="fw-bold fs-6 text-gray-800">{{$val->description}}</span>                
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between w-100">
-                                    <div class=" fw-semibold">
-                                        <h4 class="text-gray-900 fw-bold">Rp. 40.0000</h4>
-                                        <div class="fs-6 text-gray-700 "> Order Totals</div>
-                                    </div>                     
-                                    <a href="" class="btn btn btn-info me-3">Order</a>                                                                         
+                                    <a href="#" class="btn btn-danger me-3" data-name="clikc_unlike" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
+                                    <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
+                                    <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$val->id}},{{ucwords($val->name)}}">Order</a>                                                            
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                @endif
+            @endforeach
         </div>
 
     </div>

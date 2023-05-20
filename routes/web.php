@@ -81,5 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('upload_img_bukti',['as'=> 'upload_img_bukti','uses'=>'CustomerController@upload_img_bukti']);
     Route::post('addwishlist',['as'=> 'addwishlist','uses'=>'CustomerController@addwishlist']);
     Route::post('conirm_cus_order',['as'=> 'conirm_cus_order','uses'=>'CustomerController@conirm_cus_order']);
+    Route::get('cuswishlist',['as'=> 'cuswishlist','uses'=>'CustomerController@cuswishlist']);
+    
     
 });

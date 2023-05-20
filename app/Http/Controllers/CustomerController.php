@@ -48,6 +48,25 @@ class CustomerController extends Controller
         return view('Customer.product')->with($data);
     }
 
+    function cuswishlist()
+    {
+        $idn_user   = idn_user(auth::user()->id);
+        $arr        = listcategory();
+        $product    = listproduct();
+        $bahan      = listbahan();
+        $seat       = listseat();
+        $data = array(
+            'idn_user'  => $idn_user,
+            'title'     => 'Product',
+            'arr'       => $arr,
+            'product'   => $product,
+            'bahan'     => $bahan,
+            'seat'      => $seat
+        );
+
+        return view('Customer.wishlist')->with($data);
+    }
+
     function createorder(Request $request)
     {
         $id_product         = $request['id_product'];

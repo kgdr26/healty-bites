@@ -286,7 +286,7 @@
                     <!--end:Menu item-->
                 @else
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='cusprod' || Route::currentRouteName()=='cuspesanan') show @endif">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='cusprod' || Route::currentRouteName()=='cuspesanan' || Route::currentRouteName()=='cuswishlist') show @endif">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -313,6 +313,19 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">List Produk</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link @if (Route::currentRouteName()=='cuswishlist') active @endif" href="{{route('cuswishlist')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Wishlist</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>

@@ -48,7 +48,7 @@
                     <!--begin:: Card body-->
                     <div class="card-body p-9">
                         <!--begin::Name-->
-                        <div class="fs-3 fw-bold text-dark"> Most Faforit </div>
+                        <div class="fs-3 fw-bold text-dark"> Most Faforite </div>
                         <!--end::Name-->
             
                         <!--begin::Description-->
