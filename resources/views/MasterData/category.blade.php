@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="d-flex justify-content-end w-100">
-                                        <button data-name="edit_data" class="btn btn btn-info me-3">Edit</button>
+                                        <button data-name="edit_data" class="btn btn btn-info me-3" data-item="{{$val->id}},{{$val->name}}">Edit</button>
                                         <button data-name="delete_data" class="btn btn-danger" data-item="{{$val->id}},{{$val->name}}">Delete</button>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <div class="modal-content">
             <div class="modal-header" id="">
-                <h2>Edit Category</h2>
+                <h2>Add New Category</h2>
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <span class="svg-icon svg-icon-1">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -158,9 +158,23 @@
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                         <span class="required">NAME</span>
                     </label>
-                    <input type="text" class="form-control form-control-solid" placeholder="Name" data-name="name_edit"/>
+                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="edit_name"/>
+                    <input type="hidden" name="edit_id">
                 </div>
 
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">PRICE</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Price" name="edit_price" data-name="price" id="price"/>
+                </div>
+
+                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">FOTO</span>
+                    </label>
+                    <input type="file" class="form-control form-control-solid" id="edit_foto"/>
+                </div>
             </div>
             <div class="modal-footer flex-center">
                 <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
@@ -267,21 +281,25 @@
 {{-- Action Edit --}}
 <script>
     $(document).on("click", "[data-name='edit_data']", function (e) {
-        $('.preloader').show();
-        var id     = $(this).attr("data-item").split(",")[0];
-        var name   = $(this).attr("data-item").split(",")[1];
+        var id      = $(this).attr("data-item").split(",")[0];
+        var name    = $(this).attr("data-item").split(",")[1];
+        var whr     = "id";
+        var table   = "mst_category";
 
         $.ajax({
             type: "POST",
-            url: "{{ route('showDataCategory') }}",
-            data: {id:id},
+            url: "{{route('showdata')}}",
+            data: {id:id,table:table,whr:whr},
             cache: false,
-            success: function(data) {
-                // console.log(data.data['name']);
-                $('[data-name="name_edit"]').val(data.row['name']);
+            success: function (res) {
+                // console.log(res.row.id)
+                $('[name="edit_id"]').val(res.row.id);
+                $('[name="edit_name"]').val(res.row.name);
+                $('[name="edit_price"]').val(res.row.price);
                 $('#edit_data').modal('show');
                 $('.preloader').hide();
-            },            
+
+            },
             error: function (data) {
                 $('.preloader').hide();
                 Swal.fire({
@@ -294,7 +312,103 @@
                     // location.reload();
                 })
             }
-        });
+        })
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='save_data_edit']", function (e) {
+        $('.preloader').show();
+        var id          = $('[name="edit_id"]').val();
+        var name        = $('[name="edit_name"]').val();
+        var price       = $('[name="edit_price"]').val();
+        var dats        = {name:name,price:price};
+        var table       = "mst_category";
+        var whr         = "id";
+
+        // console.log(password);
+        $.ajax({
+            type: "POST",
+            url: "{{route('edit')}}",
+            data: {id:id,table:table,dats:dats,whr:whr},
+            cache: false,
+            success: function (res) {
+                // console.log(res)
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        })
+
+    });
+</script>
+
+<script>
+    var btnUpload       = $("#edit_foto");
+    btnUpload.on("change", function(e){
+        $('.preloader').show();
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        // console.log(ext)
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Format image failed!'
+            })
+        } else {
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            var photo        = e.target.files[0];
+            var id           = $('[name="edit_id"]').val();
+            var field        = 'foto';
+            var table        = 'mst_category';
+            var folder       = 'category';
+            var formData     = new FormData();
+            formData.append('edit_image', photo);
+            formData.append('id', id);
+            formData.append('table', table);
+            formData.append('field', field);
+            formData.append('folder', folder);
+            // console.log(formData);
+            $.ajax({
+                url: "{{route('editimage')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $('.preloader').hide();
+                    Swal.fire({
+                        position:'center',
+                        title: 'Success!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((data) => {
+                        location.reload();
+                    })
+                }
+            })
+
+        }
     });
 </script>
 
@@ -352,6 +466,5 @@
 
     });
 </script>
-
 
 @stop

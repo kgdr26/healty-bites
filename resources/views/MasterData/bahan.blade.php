@@ -471,6 +471,95 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit_data" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+            <div class="modal-header" id="">
+                <h2>Edit Ingredients</h2>
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body py-10 px-lg-17">
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">NAME</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="edit_name"/>
+                    <input type="hidden" name="edit_id">
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">SERVING</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Serving" name="edit_serving"/>
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">ENERGY</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Energy" name="edit_energy"/>
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">PROTEIN</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Protein" name="edit_protein"/>
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">TOTAL FAT</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Total Fat" name="edit_fat"/>
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">CARBOHYDRATE</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Carbohydrate" name="edit_carbohydrate"/>
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">PRICE</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="Price" name="edit_price" id="price"/>
+                </div>
+
+                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">FOTO</span>
+                    </label>
+                    <input type="file" class="form-control form-control-solid" id="edit_foto"/>
+                </div>
+
+            </div>
+            <div class="modal-footer flex-center">
+                <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" data-name="save_data_edit" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{-- action Add --}}
 <script>
     $(document).on("click", "[data-name='select_tab']", function (e) {
@@ -630,6 +719,151 @@
             }
         })
 
+    });
+</script>
+
+{{-- Action Edit --}}
+<script>
+    $(document).on("click", "[data-name='edit_data']", function (e) {
+        var id      = $(this).attr("data-item").split(",")[0];
+        var name    = $(this).attr("data-item").split(",")[1];
+        var whr     = "id";
+        var table   = "mst_bahan";
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('showdata')}}",
+            data: {id:id,table:table,whr:whr},
+            cache: false,
+            success: function (res) {
+                // console.log(res.row.id)
+                $('[name="edit_id"]').val(res.row.id);
+                $('[name="edit_name"]').val(res.row.name);
+                $('[name="edit_serving"]').val(res.row.serving);
+                $('[name="edit_energy"]').val(res.row.energy);
+                $('[name="edit_protein"]').val(res.row.protein);
+                $('[name="edit_fat"]').val(res.row.fat);
+                $('[name="edit_carbohydrate"]').val(res.row.carbohydrate);
+                $('[name="edit_price"]').val(res.row.price);
+
+                $('#edit_data').modal('show');
+                $('.preloader').hide();
+
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        })
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='save_data_edit']", function (e) {
+        $('.preloader').show();
+        var id          = $('[name="edit_id"]').val();
+        var name        = $('[name="edit_name"]').val();;
+        var serving     = $('[name="edit_serving"]').val();
+        var energy      = $('[name="edit_energy"]').val();
+        var protein     = $('[name="edit_protein"]').val();
+        var fat         = $('[name="edit_fat"]').val();
+        var carbohydrate    = $('[name="edit_carbohydrate"]').val();
+        var price       = $('[name="edit_price"]').val();
+        var dats        = {name:name,serving:serving,energy:energy,protein:protein,fat:fat,carbohydrate:carbohydrate,price:price};
+        var table       = "mst_bahan";
+        var whr         = "id";
+
+        // console.log(password);
+        $.ajax({
+            type: "POST",
+            url: "{{route('edit')}}",
+            data: {id:id,table:table,dats:dats,whr:whr},
+            cache: false,
+            success: function (res) {
+                // console.log(res)
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        })
+
+    });
+</script>
+
+<script>
+    var btnUpload       = $("#edit_foto");
+    btnUpload.on("change", function(e){
+        $('.preloader').show();
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        // console.log(ext)
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Format image failed!'
+            })
+        } else {
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            var photo        = e.target.files[0];
+            var id           = $('[name="edit_id"]').val();
+            var field        = 'foto';
+            var table        = 'mst_bahan';
+            var folder       = 'bahan';
+            var formData     = new FormData();
+            formData.append('edit_image', photo);
+            formData.append('id', id);
+            formData.append('table', table);
+            formData.append('field', field);
+            formData.append('folder', folder);
+            // console.log(formData);
+            $.ajax({
+                url: "{{route('editimage')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $('.preloader').hide();
+                    Swal.fire({
+                        position:'center',
+                        title: 'Success!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((data) => {
+                        location.reload();
+                    })
+                }
+            })
+
+        }
     });
 </script>
 

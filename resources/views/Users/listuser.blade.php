@@ -212,6 +212,88 @@
     </div>
 </form>
 
+<div class="modal fade" id="edit_data" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+            <div class="modal-header" id="">
+                <h2>Edit User</h2>
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body py-10 px-lg-17">
+
+                <div class="row mb-5">
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">USERNMAE</span>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="USERNMAE" name="edit_username"/>
+                        <input type="hidden" name="edit_id">
+                    </div>
+
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">PASSWORD</span>
+                        </label>
+                        <input type="password" class="form-control form-control-solid" placeholder="PASSWORD" name="edit_password"/>
+                    </div>
+
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">NAMA LENGKAP</span>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="NAMA LENGKAP" name="edit_name"/>
+                    </div>
+
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">FOTO</span>
+                        </label>
+                        <input type="file" class="form-control form-control-solid" id="edit_foto"/>
+                    </div>
+
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">EMAIL</span>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="EMAIL" name="edit_email"/>
+                    </div>
+
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">ROLE</span>
+                        </label>
+                        <select name="edit_role_id" data-control="select2" data-dropdown-parent="#add_data" data-placeholder="Select a Role..." class="form-select form-select-solid">
+                            <option value="">Select a Role...</option>
+                            @foreach ($role as $key => $val)
+                                <option value="{{$val->id}}">{{$val->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer flex-center">
+                <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" data-name="save_data_edit" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).on("click", "[data-name='add_data']", function (e) {
         $('[name="name"]').val('');
@@ -467,6 +549,145 @@
                             // location.reload();
                         })
                     }
+                })
+            }
+        })
+
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='edit_data']", function (e) {
+        var id      = $(this).attr("data-item").split(",")[0];
+        var name    = $(this).attr("data-item").split(",")[1];
+        var whr     = "id";
+        var table   = "users";
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('showdata')}}",
+            data: {id:id,table:table,whr:whr},
+            cache: false,
+            success: function (res) {
+                // console.log(res.row.id)
+                $('[name="edit_id"]').val(res.row.id);
+                $('[name="edit_name"]').val(res.row.name);
+                $('[name="edit_foto"]').val(res.row.foto);
+                $('[name="edit_email"]').val(res.row.email);
+                $('[name="edit_username"]').val(res.row.username);
+                $('[name="edit_password"]').val(res.row.pass);
+                $('[name="edit_role_id"]').val(res.row.role_id).trigger("change");
+                $('#edit_data').modal('show');
+                $('.preloader').hide();
+
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        })
+    });
+</script>
+
+<script>
+    var btnUpload       = $("#edit_foto");
+    btnUpload.on("change", function(e){
+        $('.preloader').show();
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        // console.log(ext)
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Format image failed!'
+            })
+        } else {
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            var photo        = e.target.files[0];
+            var id           = $('[name="edit_id"]').val();
+            var field        = 'foto';
+            var table        = 'users';
+            var folder       = 'profile';
+            var formData     = new FormData();
+            formData.append('edit_image', photo);
+            formData.append('id', id);
+            formData.append('table', table);
+            formData.append('field', field);
+            formData.append('folder', folder);
+            // console.log(formData);
+            $.ajax({
+                url: "{{route('editimage')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $('.preloader').hide();
+                    Swal.fire({
+                        position:'center',
+                        title: 'Success!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((data) => {
+                        location.reload();
+                    })
+                }
+            })
+
+        }
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='save_data_edit']", function (e) {
+        $('.preloader').show();
+        var id          = $('[name="edit_id"]').val();
+        var name        = $('[name="edit_name"]').val();
+        var email       = $('[name="edit_email"]').val();
+        var username    = $('[name="edit_username"]').val();
+        var role_id     = $('[name="edit_role_id"]').val();
+        var dats        = {username:username,name:name,email:email,role_id:role_id};
+        var table       = "users";
+        var whr         = "id";
+
+        // console.log(password);
+        $.ajax({
+            type: "POST",
+            url: "{{route('edit')}}",
+            data: {id:id,table:table,dats:dats,whr:whr},
+            cache: false,
+            success: function (res) {
+                // console.log(res)
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
                 })
             }
         })

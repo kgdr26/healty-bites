@@ -24,6 +24,21 @@ class ActionController extends Controller
         return response($hashedPassword);
     }
 
+    function showdata(Request $request)
+    {
+        $id         = $request['id'];
+        $whr        = $request['whr'];
+        $table      = $request['table'];
+        $data       = array(
+            'id'    => $id,
+            'table' => $table,
+            'whr'   => $whr
+        );
+        $arr        = cekdata($data);
+
+        return response($arr);
+    }
+
     function edit(Request $request)
     {
         $table      = $request['table'];

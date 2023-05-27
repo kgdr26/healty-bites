@@ -296,6 +296,122 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit_data" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+            <div class="modal-header" id="">
+                <h2>Edit Product</h2>
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body py-10 px-lg-17">
+
+                <div class="row">
+
+                    <div class="col-md-12 d-flex flex-column mb-8 fv-row">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">NAME</span>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="Name" name="edit_name"/>
+                        <input type="hidden" name="edit_id">
+                    </div>
+
+                    <div class="col-md-6 fv-row fv-plugins-icon-container mb-8">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">BREAD</span>
+                        </label>
+                        <select name="edit_bread[]" id="edit_bread" multiple="multiple" data-control="select2" data-dropdown-parent="#edit_data" class="form-select form-select-solid">
+                            @foreach ($bahan as $key => $val)
+                                @if ($val->type_bahan == 1)
+                                    <option value="{{$val->id}}">{{ucwords($val->name)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 fv-row fv-plugins-icon-container mb-8">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">GREENS</span>
+                        </label>
+                        <select name="edit_greens[]" id="edit_greens" multiple="multiple" data-control="select2" data-dropdown-parent="#edit_data" class="form-select form-select-solid">
+                            @foreach ($bahan as $key => $val)
+                                @if ($val->type_bahan == 2)
+                                    <option value="{{$val->id}}">{{ucwords($val->name)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 fv-row fv-plugins-icon-container mb-8">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">TOPPINGS</span>
+                        </label>
+                        <select name="edit_toppings[]" id="edit_toppings" multiple="multiple" data-control="select2" data-dropdown-parent="#edit_data" class="form-select form-select-solid">
+                            @foreach ($bahan as $key => $val)
+                                @if ($val->type_bahan == 3)
+                                    <option value="{{$val->id}}">{{ucwords($val->name)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 fv-row fv-plugins-icon-container mb-8">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">DRESSINGS</span>
+                        </label>
+                        <select name="edit_dressings[]" id="edit_dressings" multiple="multiple" data-control="select2" data-dropdown-parent="#edit_data" class="form-select form-select-solid">
+                            @foreach ($bahan as $key => $val)
+                                @if ($val->type_bahan == 4)
+                                    <option value="{{$val->id}}" id="opt4_{{$val->id}}">{{ucwords($val->name)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">PRICE</span>
+                        </label>
+                        <input type="text" class="form-control form-control-solid" placeholder="Price" name="edit_price" id="price"/>
+                    </div>
+
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">DESCRIPTION</span>
+                        </label>
+                        <textarea name="edit_description" id="description" rows="5" class="form-control form-control-solid" placeholder="Description"></textarea>
+                    </div>
+
+                    <div class="col-md-12 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">FOTO</span>
+                        </label>
+                        <input type="file" class="form-control form-control-solid" id="edit_foto"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer flex-end">
+                <button type="button" class="btn btn-danger me-3" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" data-name="save_data_edit" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{-- Show Data Product --}}
 <div class="modal fade" id="view_data" tabindex="-1" aria-modal="true" role="dialog">
     <!--begin::Modal dialog-->
@@ -344,7 +460,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-lg-3 fw-semibold text-muted">Energy</label>
+                            <label class="col-lg-3 fw-semibold text-muted">description</label>
                             <label class="col-lg-1 fw-semibold text-muted">:</label>
                             <div class="col-lg-8 text-end">                    
                                 <span class="fw-bold fs-6 text-gray-800" id="total_energy">- kcals</span>                
@@ -768,6 +884,193 @@
             }
         })
 
+    });
+</script>
+
+{{-- Action Edit --}}
+<script>
+    $(document).on("click", "[data-name='edit_data']", function (e) {
+        var id      = $(this).attr("data-item").split(",")[0];
+        var name    = $(this).attr("data-item").split(",")[1];
+        var whr     = "id";
+        var table   = "mst_product";
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('showdata')}}",
+            data: {id:id,table:table,whr:whr},
+            cache: false,
+            success: function (res) {
+                var sl1 = res.row.bread;
+                var sl2 = res.row.greens;
+                var sl3 = res.row.toppings;
+                var sl4 = res.row.dressings;
+
+                var ar_sl1  = new Set(sl1);
+                var ard_sl1 = Array.from(ar_sl1);
+
+                var ar_sl2  = new Set(sl2);
+                var ard_sl2 = Array.from(ar_sl2);
+
+                var ar_sl3  = new Set(sl3);
+                var ard_sl3 = Array.from(ar_sl3);
+
+                var ar_sl4  = new Set(sl4);
+                var ard_sl4 = Array.from(ar_sl4);
+
+                // console.log(sl2)
+                $('[name="edit_id"]').val(res.row.id);
+                $('[name="edit_name"]').val(res.row.name);
+                $('#edit_bread').val(ard_sl1).trigger("change");
+                $('#edit_greens').val(ard_sl2).trigger("change");
+                $('#edit_toppings').val(ard_sl3).trigger("change");
+                $('#edit_dressings').val(ard_sl4).trigger("change");
+                $('[name="edit_price"]').val(res.row.price);
+                $('[name="edit_description"]').val(res.row.description);
+
+                $('#edit_data').modal('show');
+                $('.preloader').hide();
+
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        })
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='save_data_edit']", function (e) {
+        $('.preloader').show();
+        var id           = $('[name="edit_id"]').val();
+        var name         = $('[name="edit_name"]').val();
+        var price        = $('[name="edit_price"]').val();
+        var description  = $('[name="edit_description"]').val();
+        var bread        = $('[name="edit_bread[]"]').val();
+        var greens       = $('[name="edit_greens[]"]').val();
+        var toppings     = $('[name="edit_toppings[]"]').val();
+        var dressings    = $('[name="edit_dressings[]"]').val();
+
+        if(bread == ''){
+            bread = '[]';
+        }else{
+            bread = JSON.stringify(bread);
+        }
+
+        if(greens == ''){
+            greens = '[]';
+        }else{
+            greens = JSON.stringify(greens);
+        }
+
+        if(toppings == ''){
+            toppings = '[]';
+        }else{
+            toppings = JSON.stringify(toppings);
+        }
+
+        if(dressings == ''){
+            dressings = '[]';
+        }else{
+            dressings = JSON.stringify(dressings);
+        }
+
+        var dats        = {name:name,price:price,description:description,bread:bread,greens:greens,toppings:toppings,dressings:dressings};
+        var table       = "mst_product";
+        var whr         = "id";
+
+        // console.log(password);
+        $.ajax({
+            type: "POST",
+            url: "{{route('edit')}}",
+            data: {id:id,table:table,dats:dats,whr:whr},
+            cache: false,
+            success: function (res) {
+                // console.log(res)
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Success!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((data) => {
+                    location.reload();
+                })
+            },
+            error: function (data) {
+                $('.preloader').hide();
+                Swal.fire({
+                    position:'center',
+                    title: 'Action Not Valid!',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((data) => {
+                    // location.reload();
+                })
+            }
+        })
+
+    });
+</script>
+
+<script>
+    var btnUpload       = $("#edit_foto");
+    btnUpload.on("change", function(e){
+        $('.preloader').show();
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        // console.log(ext)
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Format image failed!'
+            })
+        } else {
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            var photo        = e.target.files[0];
+            var id           = $('[name="edit_id"]').val();
+            var field        = 'img';
+            var table        = 'mst_product';
+            var folder       = 'product';
+            var formData     = new FormData();
+            formData.append('edit_image', photo);
+            formData.append('id', id);
+            formData.append('table', table);
+            formData.append('field', field);
+            formData.append('folder', folder);
+            // console.log(formData);
+            $.ajax({
+                url: "{{route('editimage')}}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $('.preloader').hide();
+                    Swal.fire({
+                        position:'center',
+                        title: 'Success!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((data) => {
+                        location.reload();
+                    })
+                }
+            })
+
+        }
     });
 </script>
 

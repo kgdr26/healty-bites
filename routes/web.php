@@ -89,5 +89,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('delete',['as'=> 'delete','uses'=>'ActionController@delete']);
     Route::post('editimage',['as'=> 'editimage','uses'=>'ActionController@editimage']);
     Route::post('hashPassword',['as'=> 'hashPassword','uses'=>'ActionController@hashPassword']);
-    
+    Route::post('showdata',['as'=> 'showdata','uses'=>'ActionController@showdata']);
 });
