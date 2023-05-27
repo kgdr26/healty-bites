@@ -4,7 +4,7 @@
 	<nav class="navbar navbar-expand-xl">
 		<div class="container-fluid px-3 px-xl-5">
 			<!-- Logo START -->
-			<a class="navbar-brand" href="">
+			<a class="navbar-brand" href="{{route('home')}}">
 				<img class="light-mode-item navbar-brand-item" src="{{asset('/img/iconmini/Logo-6.png')}}" alt="logo">
 				<img class="dark-mode-item navbar-brand-item" src="{{asset('/img/iconmini/Logo-6.png')}}" alt="logo">
 			</a>
@@ -58,21 +58,33 @@
 						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layanan</a>
 						<div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
 							<div class="row p-4 g-4">
-								@foreach ($layanan as $key => $val)
-									<!-- Dropdown column item -->
-									<div class="col-xl-6 col-xxl-3">
-										@foreach ($contentlayanan as $k => $v)
-											@if ($v->id_layanan == $val->id)
-												<h6 class="mb-0">{{ucwords($val->name)}}</h6>
-												<hr>
-												<div class="mb-2 position-relative bg-primary-soft-hover rounded-2 transition-base p-3">
-													<a class="stretched-link h6 mb-0" href="#">{{ucwords($v->name)}}</a>
-													<p class="mb-0 small text-truncate-2">{{ucfirst($v->content)}}.</p>
-												</div>
-											@endif	
-										@endforeach
+
+								<div class="col-xl-6 col-xxl-3">
+									<h6 class="mb-0">Konsultasi</h6>
+									<hr>
+									<div class="mb-2 position-relative bg-primary-soft-hover rounded-2 transition-base p-3">
+										<a class="stretched-link h6 mb-0" href="#">Konsultasi</a>
+										<p class="mb-0 small text-truncate-2">Kosnsultasikan ke kontak kami.</p>
 									</div>
-								@endforeach
+								</div>
+
+								<div class="col-xl-6 col-xxl-3">
+									<h6 class="mb-0">Healthy Food Tips</h6>
+									<hr>
+									<div class="mb-2 position-relative bg-primary-soft-hover rounded-2 transition-base p-3">
+										<a class="stretched-link h6 mb-0" href="{{route('settips')}}">Tips Makanan Sehat</a>
+										<p class="mb-0 small text-truncate-2">Berbagai tips agar bisa menjalani hidup sehat.</p>
+									</div>
+								</div>
+
+								<div class="col-xl-6 col-xxl-3">
+									<h6 class="mb-0">Healthy Lifestyle Videos</h6>
+									<hr>
+									<div class="mb-2 position-relative bg-primary-soft-hover rounded-2 transition-base p-3">
+										<a class="stretched-link h6 mb-0" href="{{route('vidios')}}">Healthy Lifestyle Videos</a>
+										<p class="mb-0 small text-truncate-2">Berbagai vidio-vidio menarik mengenai pola hidup sehat.</p>
+									</div>
+								</div>
 
 							</div>
 						</div>
@@ -82,10 +94,7 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tentang Kami</a>
 						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
-							
-							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>Loaction</a></li>
-							<li> <a class="dropdown-item" href=""><i class="fas fa-fw fa-user me-1"></i>Artikel</a></li>
-
+							<li> <a class="dropdown-item" href="{{route('artikel')}}"><i class="fas fa-fw fa-file me-1"></i>Artikel</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -94,12 +103,7 @@
 				<!-- Nav Search START -->
 				<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
 					<div class="nav-item w-100">
-						<form class="position-relative">
-							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
-							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-								<i class="fas fa-search fs-6 "></i>
-							</button>
-						</form>
+
 					</div>
 				</div>
 				<!-- Nav Search END -->

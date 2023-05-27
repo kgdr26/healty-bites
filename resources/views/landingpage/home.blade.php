@@ -404,36 +404,7 @@ Action box START -->
             </svg>
         </figure>
         <!-- SVG decoration END -->
-        
-        <div class="row">
-            <div class="col-12">
-                <div class="bg-info p-4 p-sm-5 rounded-3">
-                    <div class="row position-relative">
-                        <!-- Svg decoration -->
-                        <figure class="fill-white opacity-1 position-absolute top-50 start-0 translate-middle-y">
-                            <svg width="141px" height="141px">
-                                <path	d="M140.520,70.258 C140.520,109.064 109.062,140.519 70.258,140.519 C31.454,140.519 -0.004,109.064 -0.004,70.258 C-0.004,31.455 31.454,-0.003 70.258,-0.003 C109.062,-0.003 140.520,31.455 140.520,70.258 Z"/>
-                            </svg>
-                        </figure>
-                        <!-- Action box -->
-                        <div class="col-11 mx-auto position-relative">
-                            <div class="row align-items-center">
-                                <!-- Title -->
-                                <div class="col-lg-7">
-                                    <h3 class="text-white">Confused what to eat?</h3>
-                                    <p class="text-white mb-3 mb-lg-0">
-                                        Come on, start from now on, eat healthy food so you can enjoy a better old age.</p>
-                                </div>
-                                <!-- Content and input -->
-                                <div class="col-lg-5 text-lg-end">
-                                    <a href="#" class="btn btn-outline-warning mb-0">Start buying healthy food</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Row END -->
-                </div>
-            </div>
-        </div> <!-- Row END -->
+    
     </div>
 </section>
 <!-- =======================
@@ -442,9 +413,9 @@ Action box END -->
 <!-- =======================
 Reviews START -->
 <section class="bg-light">
-    <div class="container">
-        <div class="row g-4 g-lg-5 align-items-center">
-            <div class="col-xl-7 order-2 order-xl-1">
+    {{-- <div class="container"> --}}
+        <div class="row align-items-center">
+            <div class="col-xl-12 order-2 order-xl-1">
                 <div class="row mt-0 mt-xl-5">
                     <!-- Review -->
                     <div class="col-md-7 position-relative mb-0 mt-0 mt-md-5">
@@ -454,85 +425,11 @@ Reviews START -->
                                 <path d="M210.030,105.011 C210.030,163.014 163.010,210.029 105.012,210.029 C47.013,210.029 -0.005,163.014 -0.005,105.011 C-0.005,47.015 47.013,-0.004 105.012,-0.004 C163.010,-0.004 210.030,47.015 210.030,105.011 Z"></path>
                             </svg>
                         </figure>
-
-                        <div class="bg-body shadow text-center p-4 rounded-3 position-relative mb-5 mb-md-0">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-xl mb-3">
-                                <img class="avatar-img rounded-circle" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
-                            </div>
-                            <!-- Content -->
-                            <blockquote>
-                                <p>
-                                    <span class="me-1 small"><i class="fas fa-quote-left"></i></span>
-                                        Moonlight newspaper up its enjoyment agreeable depending. Timed voice share led him to widen noisy young. At weddings believed laughing
-                                    <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
-                                </p>
-                            </blockquote>
-                            <!-- Rating -->
-                            <ul class="list-inline mb-2">
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                            </ul>
-                            <!-- Info -->
-                            <h6 class="mb-0">Kang Dru</h6>
-                        </div>
                     </div>
 
-                    <!-- Mentor list -->
-                    <div class="col-md-5 mt-5 mt-md-0 d-none d-md-block">
-                        <div class="bg-body shadow p-4 rounded-3 d-inline-block position-relative">
-                            <!-- Icon -->
-                            <div class="icon-lg bg-warning rounded-circle position-absolute top-0 start-100 translate-middle">
-                                <i class="bi bi-shield-fill-check text-dark"></i>
-                            </div>
-                            <!-- Title -->
-                            <h6 class="mb-3">Admin Healty Bites</h6>
-                            <!-- Mentor Item -->
-                            <div class="d-flex align-items-center mb-3">
-                                <!-- Avatar -->
-                                <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-1" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
-                                </div>
-                                <!-- Info -->
-                                <div class="ms-2">
-                                    <h6 class="mb-0">Kang Dru</h6>
-                                    <p class="mb-0 small">Tutor of physic</p>
-                                </div>
-                            </div>
+                </div>
 
-                            <!-- Mentor Item -->
-                            <div class="d-flex align-items-center mb-3">
-                                <!-- Avatar -->
-                                <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-1" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
-                                </div>
-                                <!-- Info -->
-                                <div class="ms-2">
-                                    <h6 class="mb-0">Kang Dru</h6>
-                                    <p class="mb-0 small">Tutor of chemistry</p>
-                                </div>
-                            </div>
-
-                            <!-- Mentor Item -->
-                            <div class="d-flex align-items-center">
-                                <!-- Avatar -->
-                                <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-1" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
-                                </div>
-                                <!-- Info -->
-                                <div class="ms-2">
-                                    <h6 class="mb-0">Kang Dru</h6>
-                                    <p class="mb-0 small">Tutor of technology</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- Row END -->
-
-                <div class="row mt-5 mt-xl-0">
+                <div class="row mt-0">
                     <!-- Rating -->
                     <div class="col-7 mt-0 mt-xl-5 text-end position-relative z-index-1 d-none d-md-block">
                         <!-- SVG -->
@@ -585,58 +482,17 @@ Reviews START -->
                                 <path d="m99.9 13.2c-1.2 0-2.1-1-2.1-2.2s1-2.2 2.1-2.2c1.2 0 2.1 1 2.1 2.2s-1 2.2-2.1 2.2z" />
                             </svg>
                         </figure>
-
-                        <div class="p-3 bg-primary d-inline-block rounded-4 shadow-lg text-center">
-                            <!-- Info -->
-                            <h5 class="text-white mb-0">4.5/5.0</h5>
-                            <!-- Rating -->
-                            <ul class="list-inline mb-2">
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                            </ul>
-                            <p class="text-white mb-0">Based on 3265 ratings</p>
-                        </div>
                     </div>
 
-                    <!-- Review -->
-                    <div class="col-md-5 mt-n6 mb-0 mb-md-5">
-                        <div class="bg-body shadow text-center p-4 rounded-3">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-xl mb-3">
-                                <img class="avatar-img rounded-circle" src="{{asset('img/profile').'/'}}default.jpg" alt="avatar">
-                            </div>
-                            <!-- Content -->
-                            <blockquote>
-                                <p>
-                                    <span class="me-1 small"><i class="fas fa-quote-left"></i></span> 
-                                        At weddings believed laughing although the Moonlight newspaper up its enjoyment agreeable depending.
-                                    <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
-                                </p>
-                            </blockquote>
-                            <!-- Rating -->
-                            <ul class="list-inline mb-2">
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                            </ul>
-                            <!-- Info -->
-                            <h6 class="mb-0">Kang Dru</h6>
-                        </div>
-                    </div>
                 </div> <!-- Row END -->
             </div>
-            <div class="col-xl-5 order-1 text-center text-xl-start">
-                <!-- Title -->
-                <h2 class="fs-1">Some valuable feedback from our customers</h2>
-                <p data-name="landing_2">-</p>
+            <div class="col-xl-12 order-2 order-xl-1">
+                <video class="card-img-top" controls autoplay loop>
+                    <source src="{{asset('vidio').'/'.$vid->vidio}}" type="video/mp4">
+                </video>
             </div>
         </div> <!-- Row END -->
-    </div>
+    {{-- </div> --}}
 </section>
 <!-- =======================
 Reviews END -->

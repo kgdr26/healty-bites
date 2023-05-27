@@ -86,5 +86,34 @@ class ActionController extends Controller
         }   
     }
 
+    function editvidio(Request $request)
+    {
+        if ($request->hasFile('edit_image')) {
+            $fourRandomDigit = rand(10,99999);
+            $photo      = $request->file('edit_image');
+            $fileName   = $fourRandomDigit.'.'.$photo->getClientOriginalExtension();
+
+            $path = public_path().'/vidio/';
+
+            File::makeDirectory($path, 0777, true, true);
+
+            $request->file('edit_image')->move($path, $fileName);
+
+            $id         = $request->get('id');
+            $table      = $request->get('table');
+            $field      = $request->get('field');
+            $update_by  = auth::user()->id;
+            $data       = array(
+                'update_by' => $update_by,
+                $field      => $fileName
+            );
+            $update     = actionupdate($table,$id,$data);
+
+            return response($fileName);
+        }   
+    }
+
+    
+
 }
 

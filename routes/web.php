@@ -22,6 +22,10 @@ use App\Http\Controllers\AuthController;
 Route::get('/',['as'=>'/landingpage','uses'=> 'LandingPage@Landing']);
 Route::get('home',['as'=>'home','uses'=> 'LandingPage@Landing']);
 Route::post('realtimetexthome',['as'=> 'realtimetexthome','uses'=>'LandingPage@realtimetexthome']);
+Route::get('artikel',['as'=>'artikel','uses'=> 'LandingPage@artikel']);
+Route::get('settips',['as'=>'settips','uses'=> 'LandingPage@settips']);
+Route::get('vidios',['as'=>'vidios','uses'=> 'LandingPage@vidios']);
+
 
 Route::get('login',['as'=> 'login','uses'=>'AuthController@ShowFormLogin']);
 Route::post('login', ['as'=>'login_post','uses'=>'AuthController@login'] );
@@ -72,6 +76,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Setting Landing Pag
     Route::get('settlandinghome',['as'=> 'settlandinghome','uses'=>'SettLandingController@settlandinghome']);
+    Route::get('setartikel',['as'=> 'setartikel','uses'=>'SettLandingController@setartikel']);
+    Route::post('addartikel',['as'=> 'addartikel','uses'=>'SettLandingController@addartikel']);
+    Route::get('setips',['as'=> 'setips','uses'=>'SettLandingController@setips']);
+    Route::get('setvidio',['as'=> 'setvidio','uses'=>'SettLandingController@setvidio']);
+    Route::post('upload_vidio',['as'=> 'upload_vidio','uses'=>'SettLandingController@upload_vidio']);
+    Route::post('addvidio',['as'=> 'addvidio','uses'=>'SettLandingController@addvidio']);
     
     
     //Route Customer
@@ -90,4 +100,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('editimage',['as'=> 'editimage','uses'=>'ActionController@editimage']);
     Route::post('hashPassword',['as'=> 'hashPassword','uses'=>'ActionController@hashPassword']);
     Route::post('showdata',['as'=> 'showdata','uses'=>'ActionController@showdata']);
+    Route::post('editvidio',['as'=> 'editvidio','uses'=>'ActionController@editvidio']);
+    
 });
