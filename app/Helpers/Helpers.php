@@ -25,7 +25,7 @@ function cekdata($data){
 
 //Action Role
 function listrole(){
-    $arr   = DB::select("SELECT * FROM mst_role");
+    $arr   = DB::select("SELECT * FROM mst_role WHERE is_active=1");
 
     return $arr;
 }
@@ -34,7 +34,7 @@ function listrole(){
 
 //Action Users
 function listusers(){
-    $arr   = DB::select("SELECT a.*, b.name AS role_name FROM users a LEFT JOIN mst_role b ON a.role_id=b.id");
+    $arr   = DB::select("SELECT a.*, b.name AS role_name FROM users a LEFT JOIN mst_role b ON a.role_id=b.id WHERE a.is_active=1");
 
     return $arr;
 }
@@ -43,7 +43,7 @@ function listusers(){
 
 //Action Category
 function listcategory(){
-    $arr   = DB::select("SELECT * FROM mst_category");
+    $arr   = DB::select("SELECT * FROM mst_category WHERE is_active=1");
 
     return $arr;
 }
@@ -52,7 +52,7 @@ function listcategory(){
 
 //Action Product
 function listproduct(){
-    $arr   = DB::select("SELECT * FROM mst_product");
+    $arr   = DB::select("SELECT * FROM mst_product WHERE is_active=1");
 
     return $arr;
 }
@@ -61,7 +61,7 @@ function listproduct(){
 
 //Action Layanan
 function listlayanan(){
-    $arr   = DB::select("SELECT * FROM mst_layanan");
+    $arr   = DB::select("SELECT * FROM mst_layanan WHERE is_active=1");
 
     return $arr;
 }
@@ -70,7 +70,7 @@ function listlayanan(){
 
 //Action Layanan
 function listcontentlayanan(){
-    $arr   = DB::select("SELECT * FROM mst_contentlayanan");
+    $arr   = DB::select("SELECT * FROM mst_contentlayanan WHERE is_active=1");
 
     return $arr;
 }
@@ -79,7 +79,7 @@ function listcontentlayanan(){
 
 //Action Bahan
 function listbahan(){
-    $arr   = DB::select("SELECT * FROM mst_bahan");
+    $arr   = DB::select("SELECT * FROM mst_bahan WHERE is_active=1");
 
     return $arr;
 }
@@ -88,7 +88,7 @@ function listbahan(){
 
 //Action seat
 function listseat(){
-    $arr   = DB::select("SELECT * FROM mst_seat");
+    $arr   = DB::select("SELECT * FROM mst_seat WHERE is_active=1");
 
     return $arr;
 }

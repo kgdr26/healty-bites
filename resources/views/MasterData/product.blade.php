@@ -95,7 +95,8 @@
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between w-100">
                                         <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
-                                        <a href="" class="btn btn btn-info me-3">Edit</a>                                                                         
+                                        <button data-name="edit_data" class="btn btn btn-info me-3" data-item="{{$val->id}},{{$val->name}}">Edit</button>
+                                        <button data-name="delete_data" class="btn btn-danger" data-item="{{$val->id}},{{$val->name}}">Delete</button>                                                                      
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +147,8 @@
                                         <div class="card-footer">
                                             <div class="d-flex justify-content-between w-100">
                                                 <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$v->id}},{{ucwords($v->name)}}">View</a>                                        
-                                                <a href="" class="btn btn btn-info me-3">Edit</a>                                                                         
+                                                <button data-name="edit_data" class="btn btn btn-info me-3" data-item="{{$val->id}},{{$val->name}}">Edit</button>
+                                                <button data-name="delete_data" class="btn btn-danger" data-item="{{$val->id}},{{$val->name}}">Delete</button>                                                                    
                                             </div>
                                         </div>
                                     </div>
@@ -711,6 +713,61 @@
         });
 
         $('#view_data').modal('show');
+    });
+</script>
+
+<script>
+    $(document).on("click", "[data-name='delete_data']", function (e) {
+        var id      = $(this).attr("data-item").split(",")[0];
+        var name    = $(this).attr("data-item").split(",")[1];
+        var whr     = "id";
+        var table   = "mst_product";
+        
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: 'Aksi ini tidak dapat diulang!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus data!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('delete')}}",
+                    data: {id:id,table:table,whr:whr},
+                    cache: false,
+                    success: function (res) {
+                        // console.log(res)
+                        $('.preloader').hide();
+                        Swal.fire({
+                            position:'center',
+                            title: 'Success!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then((data) => {
+                            location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        $('.preloader').hide();
+                        Swal.fire({
+                            position:'center',
+                            title: 'Action Not Valid!',
+                            icon: 'warning',
+                            showConfirmButton: true,
+                            // timer: 1500
+                        }).then((data) => {
+                            // location.reload();
+                        })
+                    }
+                })
+            }
+        })
+
     });
 </script>
 

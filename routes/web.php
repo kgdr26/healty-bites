@@ -83,5 +83,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('conirm_cus_order',['as'=> 'conirm_cus_order','uses'=>'CustomerController@conirm_cus_order']);
     Route::get('cuswishlist',['as'=> 'cuswishlist','uses'=>'CustomerController@cuswishlist']);
     
+
+    // Action Edit
+    Route::post('edit',['as'=> 'edit','uses'=>'ActionController@edit']);
+    Route::post('delete',['as'=> 'delete','uses'=>'ActionController@delete']);
+    Route::post('editimage',['as'=> 'editimage','uses'=>'ActionController@editimage']);
+    Route::post('hashPassword',['as'=> 'hashPassword','uses'=>'ActionController@hashPassword']);
     
 });

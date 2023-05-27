@@ -52,9 +52,10 @@ class AuthController extends Controller
         header("cache-Control: no-store, no-cache, must-revalidate");
         header("cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
-        Session::flush();
-        $request->session()->regenerate();
-        Auth::logout();
+        Auth::logout(); // melakukan logout
+        // Session::flush();
+        $request->session()->invalidate(); // menghapus session
+        $request->session()->regenerateToken(); // meregenerasi CSRF token
         return redirect()->route('login');
     }
 
