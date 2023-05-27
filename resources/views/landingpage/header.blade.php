@@ -63,7 +63,7 @@
 									<h6 class="mb-0">Konsultasi</h6>
 									<hr>
 									<div class="mb-2 position-relative bg-primary-soft-hover rounded-2 transition-base p-3">
-										<a class="stretched-link h6 mb-0" href="#">Konsultasi</a>
+										<a class="stretched-link h6 mb-0" href="{{route('konsultasi')}}">Konsultasi</a>
 										<p class="mb-0 small text-truncate-2">Kosnsultasikan ke kontak kami.</p>
 									</div>
 								</div>

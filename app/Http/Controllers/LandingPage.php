@@ -112,6 +112,27 @@ class LandingPage extends Controller
         return view('landingpage.list')->with($data);
     }
 
+    function konsultasi()
+    {
+        $category   = listcategory();
+        $product    = listproduct();
+        $layanan    = listlayanan();
+        $contentlayanan    = listcontentlayanan();
+        $member     = DB::select("SELECT * FROM users WHERE role_id=2 AND is_active=1 LIMIT 4");
+        $arr        =  DB::select("SELECT * FROM mst_vidios WHERE is_active IN (1,2)");
+        $data = array(
+            'title'         => 'Healty Bites',
+            'page'          => 'landingpage.konsultasi',       
+            'category'      => $category,
+            'product'       => $product,
+            'layanan'       => $layanan,
+            'contentlayanan' => $contentlayanan,
+            'member'        => $member,
+            'arr'           => $arr
+        );
+
+        return view('landingpage.list')->with($data);
+    }
     
 
 }

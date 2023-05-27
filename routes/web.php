@@ -25,6 +25,7 @@ Route::post('realtimetexthome',['as'=> 'realtimetexthome','uses'=>'LandingPage@r
 Route::get('artikel',['as'=>'artikel','uses'=> 'LandingPage@artikel']);
 Route::get('settips',['as'=>'settips','uses'=> 'LandingPage@settips']);
 Route::get('vidios',['as'=>'vidios','uses'=> 'LandingPage@vidios']);
+Route::get('konsultasi',['as'=>'konsultasi','uses'=> 'LandingPage@konsultasi']);
 
 
 Route::get('login',['as'=> 'login','uses'=>'AuthController@ShowFormLogin']);
