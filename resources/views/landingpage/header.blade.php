@@ -35,7 +35,7 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
 						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
-							<li> <a class="dropdown-item" href="">ALL MENU</a></li>
+							<li> <a class="dropdown-item" href="{{route('landingallmenu')}}">ALL MENU</a></li>
 							
 							@foreach ($category as $key => $val)
 								<li class="dropdown-submenu dropend">
@@ -43,7 +43,7 @@
 									<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
 										@foreach ($product as $k => $v)
                             				@if($v->id_category == $val->id)
-												<li><a class="dropdown-item" href="">{{strtoupper($v->name)}}</a></li>
+												<li><a class="dropdown-item" href="{{route('menubyid',['id' => 1])}}">{{strtoupper($v->name)}}</a></li>
 											@endif
 										@endforeach
 									</ul>

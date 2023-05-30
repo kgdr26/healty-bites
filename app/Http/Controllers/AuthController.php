@@ -56,7 +56,7 @@ class AuthController extends Controller
         // Session::flush();
         $request->session()->invalidate(); // menghapus session
         $request->session()->regenerateToken(); // meregenerasi CSRF token
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 
 

@@ -26,7 +26,9 @@ Route::get('artikel',['as'=>'artikel','uses'=> 'LandingPage@artikel']);
 Route::get('settips',['as'=>'settips','uses'=> 'LandingPage@settips']);
 Route::get('vidios',['as'=>'vidios','uses'=> 'LandingPage@vidios']);
 Route::get('konsultasi',['as'=>'konsultasi','uses'=> 'LandingPage@konsultasi']);
-
+Route::get('landingallmenu',['as'=>'landingallmenu','uses'=> 'LandingPage@landingallmenu']);
+Route::get('menubyid/{id}',['as'=>'menubyid','uses'=> 'LandingPage@menubyid']);
+Route::post('landingdetailprod',['as'=> 'landingdetailprod','uses'=>'LandingPage@landingdetailprod']);
 
 Route::get('login',['as'=> 'login','uses'=>'AuthController@ShowFormLogin']);
 Route::post('login', ['as'=>'login_post','uses'=>'AuthController@login'] );
@@ -38,6 +40,7 @@ Route::post('saveregister',['as'=> 'saveregister','uses'=>'RegisterController@sa
 Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('dashboard',['as'=> 'dashboard','uses'=>'DashboardController@Dashboard']);
+    Route::post('addactionchalne',['as'=> 'addactionchalne','uses'=>'DashboardController@addactionchalne']);
 
     //myprofile
     Route::get('myprofile',['as'=> 'myprofile','uses'=>'MyprofileController@myprofile']);
@@ -83,7 +86,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('setvidio',['as'=> 'setvidio','uses'=>'SettLandingController@setvidio']);
     Route::post('upload_vidio',['as'=> 'upload_vidio','uses'=>'SettLandingController@upload_vidio']);
     Route::post('addvidio',['as'=> 'addvidio','uses'=>'SettLandingController@addvidio']);
-    
+    Route::get('settchalleng',['as'=> 'settchalleng','uses'=>'SettLandingController@settchalleng']);
+    Route::post('addChallenge',['as'=> 'addChallenge','uses'=>'SettLandingController@addChallenge']);
+    Route::get('setkonsultasi',['as'=> 'setkonsultasi','uses'=>'SettLandingController@setkonsultasi']);
     
     //Route Customer
     Route::get('cusprod',['as'=> 'cusprod','uses'=>'CustomerController@cusprod']);

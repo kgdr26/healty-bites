@@ -182,7 +182,7 @@
                     <!--end:Menu item-->
 
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='settlandinghome' || Route::currentRouteName()=='setartikel' || Route::currentRouteName()=='setips' || Route::currentRouteName()=='setvidio') show @endif">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (Route::currentRouteName()=='settlandinghome' || Route::currentRouteName()=='setartikel' || Route::currentRouteName()=='setips' || Route::currentRouteName()=='setvidio' || Route::currentRouteName()=='settchalleng' || Route::currentRouteName()=='setkonsultasi') show @endif">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -230,7 +230,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @if (Route::currentRouteName()=='settlandinghome') active @endif" href="{{route('settlandinghome')}}">
+                                <a class="menu-link @if (Route::currentRouteName()=='settchalleng') active @endif" href="{{route('settchalleng')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -261,6 +261,19 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Vidios</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link @if (Route::currentRouteName()=='setkonsultasi') active @endif" href="{{route('setkonsultasi')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Sett Konsultasi</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>

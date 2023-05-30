@@ -151,14 +151,14 @@ Main Banner START -->
                 </h1>
                 
                 <!-- Content -->
-                <p class="my-4 lead" data-name="landing_1">-</p>
+                <p class="my-4 lead" data-name="">{!! $text->content !!}</p>
 
                 <div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
                     <!-- Button -->
                     <a href="{{route('register')}}" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
                     <!-- Video button -->
                     <div class="d-flex align-items-center justify-content-center py-2 ms-0 ms-sm-4">
-                        <a data-glightbox data-gallery="office-tour" href="" class="btn btn-round btn-primary-shadow mb-0 overflow-visible me-7"> 
+                        <a data-glightbox data-gallery="office-tour" href="{{asset('vidio').'/'.$vid->vidio}}" class="btn btn-round btn-primary-shadow mb-0 overflow-visible me-7"> 
                             <i class="fas fa-play"></i>
                             <h6 class="mb-0 ms-3 fw-normal position-absolute start-100 top-50 translate-middle-y">Watch video</h6>
                         </a>
@@ -499,36 +499,3 @@ Reviews END -->
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
-
-
-<script>
-    $(document).ready(function() {
-        setTimeout(realtimetexthome,1000);
-    });
-</script>
-
-<script>
-    function realtimetexthome() {
-        $.ajax({
-            url: "{{ route('realtimetexthome') }}",
-            type: "POST",
-            data: {},
-            dataType: 'json',
-            global: false,
-            success: function(data) {
-                console.log(data);
-                for (let i = 0; i < data.length; i++) {
-                    var title = data[i].id;
-                    var value = data[i].text;
-                    var key = $('[data-name="landing_'+title+'"]');
-                    key.text(value);
-                }
-
-            },
-            complete: function (data) {
-                // Schedule the next
-                setTimeout(realtimetexthome, 1000);
-            }
-        });
-    }
-</script>

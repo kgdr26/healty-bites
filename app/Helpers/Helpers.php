@@ -290,4 +290,169 @@ function addwishlit($id,$id_usr){
     // return $dat;
 }
 
+function landingdetailprod($id){
+    $data       = collect(\DB::select("SELECT * FROM mst_product WHERE id='$id'"))->first();
+    $bahan      = DB::select("SELECT * FROM mst_bahan");
+
+    $description= $data->description;
+    $price      = 'Rp '. number_format($data->price, 0, ',', '.');
+    $foto       = asset('img/product/'.$data->img);
+    $image      = '<div class="position-relative"><img src="'.$foto.'" class="w-100" alt=""><div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div></div>';
+    
+    $total_serving      = 0;
+    $total_energy       = 0;
+    $total_protein      = 0;
+    $total_fat          = 0;
+    $total_carbohydrate = 0;
+
+    $data_bread     = json_decode($data->bread);
+    $bread      = '';
+    if(count($data_bread) == 0){
+        $bread .= '<tr>';
+        $bread .= '<td colspan="8" class="text-center">Data Not Availible</td>';
+        $bread .= '</tr>';
+    }else{
+        foreach($data_bread as $key => $val){
+            foreach($bahan as $k => $v){
+                if($v->id == $val){
+                    $no     = $k + 1;
+                    $imgg   = asset('img/bahan/'.$v->foto);
+                    $bread .= '<tr>';
+                    $bread .= '<td>'.$no.'</td>';
+                    $bread .= '<td><img src="'.$imgg.'" alt="" style="width: 4rem"></td>';
+                    $bread .= '<td>'.$v->name.'</td>';
+                    $bread .= '<td class="text-center">'.$v->serving.' g</td>';
+                    $bread .= '<td class="text-center">'.$v->energy.' kcals</td>';
+                    $bread .= '<td class="text-center">'.$v->protein.' g</td>';
+                    $bread .= '<td class="text-center">'.$v->fat.' g</td>';
+                    $bread .= '<td class="text-center">'.$v->carbohydrate.' g</td>';
+                    $bread .= '</tr>';
+
+                    $total_serving      += $v->serving;
+                    $total_energy       += $v->energy;
+                    $total_protein      += $v->protein;
+                    $total_fat          += $v->fat;
+                    $total_carbohydrate += $v->carbohydrate;
+                }
+            }
+        }
+    }
+
+    $data_greens    = json_decode($data->greens);
+    $greens     = '';
+    if(count($data_greens) == 0){
+        $bread .= '<tr>';
+        $bread .= '<td colspan="8" class="text-center">Data Not Availible</td>';
+        $bread .= '</tr>';
+    }else{
+        foreach($data_greens as $key => $val){
+            foreach($bahan as $k => $v){
+                if($v->id == $val){
+                    $no     = $k + 1;
+                    $imgg   = asset('img/bahan/'.$v->foto);
+                    $greens .= '<tr>';
+                    $greens .= '<td>'.$no.'</td>';
+                    $greens .= '<td><img src="'.$imgg.'" alt="" style="width: 4rem"></td>';
+                    $greens .= '<td>'.$v->name.'</td>';
+                    $greens .= '<td class="text-center">'.$v->serving.' g</td>';
+                    $greens .= '<td class="text-center">'.$v->energy.' kcals</td>';
+                    $greens .= '<td class="text-center">'.$v->protein.' g</td>';
+                    $greens .= '<td class="text-center">'.$v->fat.' g</td>';
+                    $greens .= '<td class="text-center">'.$v->carbohydrate.' g</td>';
+                    $greens .= '</tr>';
+
+                    $total_serving      += $v->serving;
+                    $total_energy       += $v->energy;
+                    $total_protein      += $v->protein;
+                    $total_fat          += $v->fat;
+                    $total_carbohydrate += $v->carbohydrate;
+                }
+            }
+        }
+    }
+
+    $data_toppings    = json_decode($data->toppings);
+    $toppings   = '';
+    if(count($data_toppings) == 0){
+        $bread .= '<tr>';
+        $bread .= '<td colspan="8" class="text-center">Data Not Availible</td>';
+        $bread .= '</tr>';
+    }else{
+        foreach($data_toppings as $key => $val){
+            foreach($bahan as $k => $v){
+                if($v->id == $val){
+                    $no     = $k + 1;
+                    $imgg   = asset('img/bahan/'.$v->foto);
+                    $toppings .= '<tr>';
+                    $toppings .= '<td>'.$no.'</td>';
+                    $toppings .= '<td><img src="'.$imgg.'" alt="" style="width: 4rem"></td>';
+                    $toppings .= '<td>'.$v->name.'</td>';
+                    $toppings .= '<td class="text-center">'.$v->serving.' g</td>';
+                    $toppings .= '<td class="text-center">'.$v->energy.' kcals</td>';
+                    $toppings .= '<td class="text-center">'.$v->protein.' g</td>';
+                    $toppings .= '<td class="text-center">'.$v->fat.' g</td>';
+                    $toppings .= '<td class="text-center">'.$v->carbohydrate.' g</td>';
+                    $toppings .= '</tr>';
+
+                    $total_serving      += $v->serving;
+                    $total_energy       += $v->energy;
+                    $total_protein      += $v->protein;
+                    $total_fat          += $v->fat;
+                    $total_carbohydrate += $v->carbohydrate;
+                }
+            }
+        }
+    }
+
+    $data_dressings    = json_decode($data->dressings);
+    $dressings  = '';
+    if(count($data_dressings) == 0){
+        $bread .= '<tr>';
+        $bread .= '<td colspan="8" class="text-center">Data Not Availible</td>';
+        $bread .= '</tr>';
+    }else{
+        foreach($data_dressings as $key => $val){
+            foreach($bahan as $k => $v){
+                if($v->id == $val){
+                    $no     = $k + 1;
+                    $imgg   = asset('img/bahan/'.$v->foto);
+                    $dressings .= '<tr>';
+                    $dressings .= '<td>'.$no.'</td>';
+                    $dressings .= '<td><img src="'.$imgg.'" alt="" style="width: 4rem"></td>';
+                    $dressings .= '<td>'.$v->name.'</td>';
+                    $dressings .= '<td class="text-center">'.$v->serving.' g</td>';
+                    $dressings .= '<td class="text-center">'.$v->energy.' kcals</td>';
+                    $dressings .= '<td class="text-center">'.$v->protein.' g</td>';
+                    $dressings .= '<td class="text-center">'.$v->fat.' g</td>';
+                    $dressings .= '<td class="text-center">'.$v->carbohydrate.' g</td>';
+                    $dressings .= '</tr>';
+
+                    $total_serving      += $v->serving;
+                    $total_energy       += $v->energy;
+                    $total_protein      += $v->protein;
+                    $total_fat          += $v->fat;
+                    $total_carbohydrate += $v->carbohydrate;
+                }
+            }
+        }
+    }
+
+    $arr['foto']        = $image;
+    $arr['price']       = $price;
+    $arr['description'] = $description;
+    $arr['bread']       = $bread;
+    $arr['greens']      = $greens;
+    $arr['toppings']    = $toppings;
+    $arr['dressings']   = $dressings;
+
+    $arr['total_serving']       = $total_serving;
+    $arr['total_energy']        = $total_energy;
+    $arr['total_protein']       = $total_protein;
+    $arr['total_fat']           = $total_fat;
+    $arr['total_carbohydrate']  = $total_carbohydrate;
+
+    return $arr;
+}
+    
+
 ?>

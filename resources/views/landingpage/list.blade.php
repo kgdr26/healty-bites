@@ -99,7 +99,6 @@
         <script src="{{asset('assets/landing/js/tiny-slider.js')}}"></script>
         <script src="{{asset('assets/landing/js/glightbox.js')}}"></script>
         <script src="{{asset('assets/landing/js/purecounter_vanilla.js')}}"></script>
-
         <!-- Template Functions -->
         <script src="{{asset('assets/landing/js/functions.js')}}"></script>
         <script>

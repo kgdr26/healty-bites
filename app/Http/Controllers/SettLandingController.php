@@ -21,9 +21,11 @@ class SettLandingController extends Controller
     function settlandinghome()
     {
         $idn_user   = idn_user(auth::user()->id);
+        $arr        = collect(\DB::select("SELECT * FROM mst_artikel WHERE id='3'"))->first();
         $data = array(
             'idn_user'  => $idn_user,
-            'title' => 'Setting Landing Page'
+            'title'     => 'Setting Landing Page',
+            'arr'       => $arr
         );
 
         return view('Setlandingpage.home')->with($data);
@@ -109,5 +111,41 @@ class SettLandingController extends Controller
 
     }
 
+    function settchalleng()
+    {
+        $idn_user   = idn_user(auth::user()->id);
+        $arr        = DB::select("SELECT * FROM mst_challeng WHERE is_active in(1,2)");
+        $data = array(
+            'idn_user'  => $idn_user,
+            'title' => 'Manage Role',
+            'arr'   => $arr
+        );
+
+        return view('Setlandingpage.settchalleng')->with($data);
+    }
+    
+    function addChallenge(Request $request)
+    {
+        $name       = $request['name'];
+        $is_active  = 1;
+        $update_by  = auth::user()->id;
+
+        DB::insert("INSERT INTO mst_challeng (name,is_active,update_by) values (?,?,?)", [$name,$is_active,$update_by]);
+
+        return response('success');
+    }
+
+    function setkonsultasi()
+    {
+        $idn_user   = idn_user(auth::user()->id);
+        $arr        = collect(\DB::select("SELECT * FROM mst_konsultasi WHERE id='1'"))->first();
+        $data = array(
+            'idn_user'  => $idn_user,
+            'title'     => 'Setting Landing Page',
+            'arr'       => $arr
+        );
+
+        return view('Setlandingpage.setkonsultasi')->with($data);
+    }
     
 }

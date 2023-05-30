@@ -120,43 +120,240 @@
 
             <!-- Content START -->
         <div class="container" id="result">
-            <div class="d-flex justify-content-center mb-3">
-                <h1>Konsultasi</h1>
-            </div>
 
-            <div class="row mb-3">
-                <div class="col-4">
-                    <h4>No telp</h4>
-                </div>
-                <div class="col-1">
-                    <h4>:</h4>
-                </div>
-                <div class="col-7">
-                    <h4 style="color: #747579">{{$knslt->tlp}}</h4>
-                </div>
+            <!--begin::Heading-->
+            <div class="mb-13 text-center">
+                <h1 class="mb-3" data-name="name_view">-</h1>
             </div>
-
-            <div class="row mb-3">
-                <div class="col-4">
-                    <h4>Jam operasi</h4>
-                </div>
-                <div class="col-1">
-                    <h4>:</h4>
-                </div>
-                <div class="col-7">
-                    <h4 style="color: #747579">{{$knslt->jam}}</h4>
-                </div>
-            </div>
+            <!--end::Heading-->
 
             <div class="row">
-                <div class="col-4">
-                    <h4>Alamat</h4>
+                <div class="col-4 mb-10" id="image_view">
+
                 </div>
-                <div class="col-1">
-                    <h4>:</h4>
+
+                <div class="col-8 mb-10">
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">Serving</label>
+                        <label class="col-lg-1 fw-semibold text-muted">:</label>
+                        <div class="col-lg-8 text-end">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="total_serving">- g</span>                
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">description</label>
+                        <label class="col-lg-1 fw-semibold text-muted">:</label>
+                        <div class="col-lg-8 text-end">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="total_energy">- kcals</span>                
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">Protein</label>
+                        <label class="col-lg-1 fw-semibold text-muted">:</label>
+                        <div class="col-lg-8 text-end">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="total_protein">- g</span>                
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">Total Fat</label>
+                        <label class="col-lg-1 fw-semibold text-muted">:</label>
+                        <div class="col-lg-8 text-end">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="total_fat">- g</span>                
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">Carbohydrate</label>
+                        <label class="col-lg-1 fw-semibold text-muted">:</label>
+                        <div class="col-lg-8 text-end">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="total_carbohydrate">- g</span>                
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">Price</label>
+                        <label class="col-lg-1 fw-semibold text-muted">:</label>
+                        <div class="col-lg-8 text-end">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="id_price">-</span>                
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-lg-3 fw-semibold text-muted">Description</label>
+                        <label class="col-lg-9 fw-semibold text-muted">:</label>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10">                    
+                            <span class="fw-bold fs-6 text-gray-800" id="id_description">-</span>                
+                        </div>
+                    </div>
                 </div>
-                <div class="col-7">
-                    <h4 style="color: #747579">{{$knslt->alamt}}</h4>
+
+                <div class="col-12">
+                    <div class="mb-13 text-center">
+                        <h1>Ingredients</h1>
+                    </div>
+                    <h4 class="fw-bold d-flex align-items-center text-dark">
+                        Bread
+                    </h4>
+                    <div class="table-responsive mb-8">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_ecommerce_products_table">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="">No</th>
+                                    <th class="">Foto</th>
+                                    <th class="">Name</th>
+                                    <th class="text-center">Serving</th>
+                                    <th class="text-center">Energy</th>
+                                    <th class="text-center">Protein</th>
+                                    <th class="text-center">Total Fat</th>
+                                    <th class="text-center">Carbohydrate</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                    
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600" id="data_bread">
+                                {{-- <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <img src="{{asset('img/bahan').'/'.'17536.jpg'}}" alt="" style="width: 4rem">
+                                    </td>
+                                    <td>Organic Romaine</td>
+                                    <td class="text-center">120 g</td>
+                                    <td class="text-center">20.0 kcals</td>
+                                    <td class="text-center">1.0 g</td>
+                                    <td class="text-center">0 g</td>
+                                    <td class="text-center">4.0 g</td>
+                                </tr> --}}
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
+
+                    <h4 class="fw-bold d-flex align-items-center text-dark">
+                        Greens
+                    </h4>
+                    <div class="table-responsive mb-8">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_ecommerce_products_table">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="">No</th>
+                                    <th class="">Foto</th>
+                                    <th class="">Name</th>
+                                    <th class="text-center">Serving</th>
+                                    <th class="text-center">Energy</th>
+                                    <th class="text-center">Protein</th>
+                                    <th class="text-center">Total Fat</th>
+                                    <th class="text-center">Carbohydrate</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                    
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600" id="data_greens">
+                                {{-- <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <img src="{{asset('img/bahan').'/'.'17536.jpg'}}" alt="" style="width: 4rem">
+                                    </td>
+                                    <td>Organic Romaine</td>
+                                    <td class="text-center">120 g</td>
+                                    <td class="text-center">20.0 kcals</td>
+                                    <td class="text-center">1.0 g</td>
+                                    <td class="text-center">0 g</td>
+                                    <td class="text-center">4.0 g</td>
+                                </tr> --}}
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
+
+                    <h4 class="fw-bold d-flex align-items-center text-dark">
+                        Toppings
+                    </h4>
+                    <div class="table-responsive mb-8">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_ecommerce_products_table">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="">No</th>
+                                    <th class="">Foto</th>
+                                    <th class="">Name</th>
+                                    <th class="text-center">Serving</th>
+                                    <th class="text-center">Energy</th>
+                                    <th class="text-center">Protein</th>
+                                    <th class="text-center">Total Fat</th>
+                                    <th class="text-center">Carbohydrate</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                    
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600" id="data_toppings">
+                                {{-- <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <img src="{{asset('img/bahan').'/'.'17536.jpg'}}" alt="" style="width: 4rem">
+                                    </td>
+                                    <td>Organic Romaine</td>
+                                    <td class="text-center">120 g</td>
+                                    <td class="text-center">20.0 kcals</td>
+                                    <td class="text-center">1.0 g</td>
+                                    <td class="text-center">0 g</td>
+                                    <td class="text-center">4.0 g</td>
+                                </tr> --}}
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
+
+                    <h4 class="fw-bold d-flex align-items-center text-dark">
+                        Dressings
+                    </h4>
+                    <div class="table-responsive mb-8">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_ecommerce_products_table">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="">No</th>
+                                    <th class="">Foto</th>
+                                    <th class="">Name</th>
+                                    <th class="text-center">Serving</th>
+                                    <th class="text-center">Energy</th>
+                                    <th class="text-center">Protein</th>
+                                    <th class="text-center">Total Fat</th>
+                                    <th class="text-center">Carbohydrate</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                    
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600" id="data_dressings">
+                                {{-- <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <img src="{{asset('img/bahan').'/'.'17536.jpg'}}" alt="" style="width: 4rem">
+                                    </td>
+                                    <td>Organic Romaine</td>
+                                    <td class="text-center">120 g</td>
+                                    <td class="text-center">20.0 kcals</td>
+                                    <td class="text-center">1.0 g</td>
+                                    <td class="text-center">0 g</td>
+                                    <td class="text-center">4.0 g</td>
+                                </tr> --}}
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -164,3 +361,49 @@
 
     </section>
 </main>
+
+<script>
+
+$(document).ready(function() {
+    setTimeout(detaildata,1000);
+});
+
+function detaildata(){
+    var id = '{!! $id !!}';
+    $.ajax({
+        type: "POST",
+        url: "{{ route('landingdetailprod') }}",
+        data: {id:id},
+        cache: false,
+        success: function(data) {
+            console.log(data);
+            $('#image_view').html(data.foto);
+            $('#id_price').text(data.price);
+            $('#id_description').text(data.description);
+            $('#data_bread').html(data.bread);
+            $('#data_greens').html(data.greens);
+            $('#data_toppings').html(data.toppings);
+            $('#data_dressings').html(data.dressings);
+            $('#total_serving').text(data.total_serving+' g');
+            $('#total_energy').text(data.total_energy+' kcals');
+            $('#total_protein').text(data.total_protein+' g');
+            $('#total_fat').text(data.total_fat+' g');
+            $('#total_carbohydrate').text(data.total_carbohydrate+' g');
+            $('.preloader').hide();
+        },            
+        error: function (data) {
+            $('.preloader').hide();
+            Swal.fire({
+                position:'center',
+                title: 'Action Not Valid!',
+                icon: 'warning',
+                showConfirmButton: true,
+                // timer: 1500
+            }).then((data) => {
+                // location.reload();
+            })
+        }
+    });
+}
+
+</script>

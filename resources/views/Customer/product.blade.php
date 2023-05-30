@@ -39,9 +39,9 @@
                 </li>
             @endforeach
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#tabs_content_own">CREATE YOUR OWN</a>
-            </li>
+            </li> --}}
 
         </ul>
         <!--begin::Tab content-->
@@ -146,15 +146,15 @@
                                         <div class="card-footer">
                                             <div class="d-flex justify-content-between w-100">
                                                 @php
-                                                    $wsh    = json_decode($val->wishlist);
+                                                    $wsh    = json_decode($v->wishlist);
                                                 @endphp
                                                 @if (in_array($idn_user->id, $wsh))
-                                                    <a href="#" class="btn btn-danger me-3" data-name="clikc_unlike" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
+                                                    <a href="#" class="btn btn-danger me-3" data-name="clikc_unlike" data-item="{{$v->id}},{{ucwords($v->name)}}"><i class="bi bi-heart-fill"></i></a>
                                                 @else
-                                                    <a href="#" class="btn btn-outline btn-outline-danger btn-active-light-danger me-3" data-name="clikc_like" data-item="{{$val->id}},{{ucwords($val->name)}}"><i class="bi bi-heart-fill"></i></a>
+                                                    <a href="#" class="btn btn-outline btn-outline-danger btn-active-light-danger me-3" data-name="clikc_like" data-item="{{$v->id}},{{ucwords($v->name)}}"><i class="bi bi-heart-fill"></i></a>
                                                 @endif
-                                                <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$val->id}},{{ucwords($val->name)}}">View</a>                                        
-                                                <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$val->id}},{{ucwords($val->name)}}">Order</a>                                                                        
+                                                <a href="#" class="btn btn btn-success me-3" data-name="view_data" data-item="{{$v->id}},{{ucwords($v->name)}}">View</a>                                        
+                                                <a href="#" class="btn btn btn-info me-3" data-name="order_data" data-item="{{$v->id}},{{ucwords($v->name)}}">Order</a>                                                                        
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
                 </div>
             @endforeach
 
-            <div class="tab-pane fade" id="tabs_content_own" role="tab-panel">
+            {{-- <div class="tab-pane fade" id="tabs_content_own" role="tab-panel">
                 <div class="row">
                     <div class="col-4">
                         <div class="row">
@@ -513,7 +513,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     </div>

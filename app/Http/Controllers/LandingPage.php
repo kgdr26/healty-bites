@@ -26,6 +26,7 @@ class LandingPage extends Controller
         $contentlayanan    = listcontentlayanan();
         $member     = DB::select("SELECT * FROM users WHERE role_id=2 AND is_active=1 LIMIT 4");
         $vid        = collect(\DB::select("SELECT * FROM mst_vidios WHERE is_active=2"))->first();
+        $text       = collect(\DB::select("SELECT * FROM mst_artikel WHERE id='3'"))->first();
         $data = array(
             'title'         => 'Healty Bites',
             'page'          => 'landingpage.home',       
@@ -34,7 +35,8 @@ class LandingPage extends Controller
             'layanan'       => $layanan,
             'contentlayanan' => $contentlayanan,
             'member'        => $member,
-            'vid'         => $vid
+            'vid'           => $vid,
+            'text'          => $text
         );
 
         return view('landingpage.list')->with($data);
@@ -120,6 +122,7 @@ class LandingPage extends Controller
         $contentlayanan    = listcontentlayanan();
         $member     = DB::select("SELECT * FROM users WHERE role_id=2 AND is_active=1 LIMIT 4");
         $arr        =  DB::select("SELECT * FROM mst_vidios WHERE is_active IN (1,2)");
+        $knslt      = collect(\DB::select("SELECT * FROM mst_konsultasi WHERE id='1'"))->first();
         $data = array(
             'title'         => 'Healty Bites',
             'page'          => 'landingpage.konsultasi',       
@@ -128,10 +131,64 @@ class LandingPage extends Controller
             'layanan'       => $layanan,
             'contentlayanan' => $contentlayanan,
             'member'        => $member,
-            'arr'           => $arr
+            'arr'           => $arr,
+            'knslt'         => $knslt
         );
 
         return view('landingpage.list')->with($data);
+    }
+
+    function landingallmenu()
+    {
+        $category   = listcategory();
+        $product    = listproduct();
+        $layanan    = listlayanan();
+        $contentlayanan    = listcontentlayanan();
+        $member     = DB::select("SELECT * FROM users WHERE role_id=2 AND is_active=1 LIMIT 4");
+        $vid        = collect(\DB::select("SELECT * FROM mst_vidios WHERE is_active=2"))->first();
+        $data = array(
+            'title'         => 'Healty Bites',
+            'page'          => 'landingpage.allmenu',       
+            'category'      => $category,
+            'product'       => $product,
+            'layanan'       => $layanan,
+            'contentlayanan' => $contentlayanan,
+            'member'        => $member,
+            'vid'         => $vid
+        );
+
+        return view('landingpage.list')->with($data);
+    }
+
+    function menubyid(Request $request)
+    {
+        $category   = listcategory();
+        $product    = listproduct();
+        $layanan    = listlayanan();
+        $contentlayanan    = listcontentlayanan();
+        $member     = DB::select("SELECT * FROM users WHERE role_id=2 AND is_active=1 LIMIT 4");
+        $vid        = collect(\DB::select("SELECT * FROM mst_vidios WHERE is_active=2"))->first();
+        $id         = $request['id'];
+        $data = array(
+            'title'         => 'Healty Bites',
+            'page'          => 'landingpage.menubyid',       
+            'category'      => $category,
+            'product'       => $product,
+            'layanan'       => $layanan,
+            'contentlayanan' => $contentlayanan,
+            'member'        => $member,
+            'vid'           => $vid,
+            'id'            => $id
+        );
+
+        return view('landingpage.list')->with($data);
+    }
+
+    function landingdetailprod(Request $request)
+    {
+        $id         = $request['id'];
+        $arr        = landingdetailprod($id);
+        return response($arr);
     }
     
 
